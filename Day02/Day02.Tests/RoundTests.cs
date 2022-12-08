@@ -7,7 +7,7 @@ namespace Day02.Tests
         [TestCase(OpponentMoves.Rock, YourMoves.Paper, 8)]
         [TestCase(OpponentMoves.Paper, YourMoves.Rock, 1)]
         [TestCase(OpponentMoves.Scissors, YourMoves.Scissors, 6)]
-        public void Execute_ReturnsCorrectScore(OpponentMoves opponentMove, YourMoves yourMove, int expectedScore)
+        public void GetTotalScore_ReturnsCorrectScore(OpponentMoves opponentMove, YourMoves yourMove, int expectedScore)
         {
             var s = new Round(opponentMove, yourMove);
             var score = s.GetTotalScore();
