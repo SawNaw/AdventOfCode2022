@@ -9,9 +9,9 @@ namespace Day02.Tests
     internal class IntegrationTests
     {
         [Test]
-        public void TotalScore_ComputesCorrectly()
+        public void TotalScore_ComputesCorrectly_ForPartOne()
         {
-            var rounds = StrategyGuideReader.ReadFromFile(@"testinput.txt");
+            var rounds = StrategyGuideReader.ReadFromFile(@"testinput.txt", StrategyGuideReader.ReadMode.PartOne);
             int score = 0;
             foreach (var round in rounds) 
             {

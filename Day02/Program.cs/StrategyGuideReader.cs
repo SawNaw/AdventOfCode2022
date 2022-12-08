@@ -1,6 +1,7 @@
 ﻿using Day02.Core.Moves;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace Day02.Core
 {
     public static class StrategyGuideReader
     {
-        public static IEnumerable<Round> ReadFromFile(string file)
+        public static IEnumerable<Round> ReadFromFile(string file, ReadMode readMode)
         {
             if (!File.Exists(file))
             {
@@ -20,7 +21,10 @@ namespace Day02.Core
 
             foreach (var line in File.ReadAllLines(file)) 
             {
-                rounds.Add(GetRoundFromLine(line));
+                if (readMode == ReadMode.PartOne)
+                {
+                    rounds.Add(GetRoundFromLine(line));
+                }
             }
 
             return rounds;
@@ -54,7 +58,30 @@ namespace Day02.Core
             };
         }
 
-        // TODO
-        //private static YourMoves GetNecessaryMoveForResult(OpponentMoves theirMove)
+        private static YourMoves GetYourMoveFromTwoLetters(string[] letters)
+        {
+            return letters[0] switch
+            {
+                "A" when letters[1] == "X" => YourMoves.Scissors,
+                "A" when letters[1] == "Y" => YourMoves.Rock,
+                "A" when letters[1] == "Z" => YourMoves.Paper,
+
+                "B" when letters[1] == "X" => YourMoves.Rock,
+                "B" when letters[1] == "Y" => YourMoves.Paper,
+                "B" when letters[1] == "Z" => YourMoves.Scissors,
+
+                "C" when letters[1] == "X" => YourMoves.Paper,
+                "C" when letters[1] == "Y" => YourMoves.Scissors,
+                "C" when letters[1] == "Z" => YourMoves.Rock,
+
+                _ => throw new ArgumentException($"{letters[0]} is not a valid move.")
+            };
+        }
+
+        public enum ReadMode
+        {
+            PartOne,
+            PartTwo,
+        }
     }
 }

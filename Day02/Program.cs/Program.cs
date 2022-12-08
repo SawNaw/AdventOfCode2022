@@ -7,7 +7,7 @@ DoPartOne();
 
 static void DoPartOne()
 {
-    var rounds = StrategyGuideReader.ReadFromFile(@"input.txt");
+    var rounds = StrategyGuideReader.ReadFromFile(@"input.txt", StrategyGuideReader.ReadMode.PartOne);
 
     int score = 0;
     foreach (var round in rounds)

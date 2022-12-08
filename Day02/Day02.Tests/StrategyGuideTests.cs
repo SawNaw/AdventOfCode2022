@@ -12,7 +12,7 @@ namespace Day02.Tests
         [Test]
         public void ReadFromFile_Returns_CorrectRounds()
         {
-            var rounds = StrategyGuideReader.ReadFromFile(@"testinput.txt");
+            var rounds = StrategyGuideReader.ReadFromFile(@"testinput.txt", StrategyGuideReader.ReadMode.PartOne);
             var t = rounds.ToArray();
 
             Assert.That(rounds.ElementAt(0).OpponentsMove, Is.EqualTo(OpponentMoves.Rock));
