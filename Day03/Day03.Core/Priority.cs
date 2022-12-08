@@ -13,14 +13,28 @@ namespace Day03.Core
         {
             InitializeLetterToPriorityLookup();
         }
-        public static int GetPriority(char letter)
+
+        internal static int GetPriority(char letter)
         {
             return lettersAndPriorities[letter];
+        }
+
+        internal static int GetSumOfPrioritiesOfAllCommonItems(string filepath)
+        {
+            var file = File.ReadAllLines(filepath);
+            int sum = 0;
+            foreach (var line in file) 
+            { 
+                var sack = new Rucksack(line);
+                sum += GetPriority(sack.GetCommonItem());
+            }
+            return sum;
         }
 
         private static void InitializeLetterToPriorityLookup() 
         {
             int i = 1;
+
             // Add priorities for 'a' through 'z'
             for (char c = 'a'; c <= 'z'; c++, i++) 
             {
