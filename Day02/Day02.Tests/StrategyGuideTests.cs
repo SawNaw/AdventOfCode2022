@@ -15,12 +15,15 @@ namespace Day02.Tests
             var rounds = StrategyGuideReader.GetAllRoundsFromFile(@"testinput.txt", StrategyGuideReader.ReadMode.PartOne);
             var t = rounds.ToArray();
 
-            Assert.That(rounds.ElementAt(0).OpponentsMove, Is.EqualTo(OpponentMoves.Rock));
-            Assert.That(rounds.ElementAt(0).YourMove, Is.EqualTo(YourMoves.Paper));
-            Assert.That(rounds.ElementAt(1).OpponentsMove, Is.EqualTo(OpponentMoves.Paper));
-            Assert.That(rounds.ElementAt(1).YourMove, Is.EqualTo(YourMoves.Rock));
-            Assert.That(rounds.ElementAt(2).OpponentsMove, Is.EqualTo(OpponentMoves.Scissors));
-            Assert.That(rounds.ElementAt(2).YourMove, Is.EqualTo(YourMoves.Scissors));
+            Assert.Multiple(() =>
+            {
+                Assert.That(rounds.ElementAt(0).OpponentsMove, Is.EqualTo(OpponentMoves.Rock));
+                Assert.That(rounds.ElementAt(0).YourMove, Is.EqualTo(YourMoves.Paper));
+                Assert.That(rounds.ElementAt(1).OpponentsMove, Is.EqualTo(OpponentMoves.Paper));
+                Assert.That(rounds.ElementAt(1).YourMove, Is.EqualTo(YourMoves.Rock));
+                Assert.That(rounds.ElementAt(2).OpponentsMove, Is.EqualTo(OpponentMoves.Scissors));
+                Assert.That(rounds.ElementAt(2).YourMove, Is.EqualTo(YourMoves.Scissors));
+            });
         }
     }
 }
