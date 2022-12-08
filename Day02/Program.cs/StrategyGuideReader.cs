@@ -19,21 +19,23 @@ namespace Day02.Core
 
             var rounds = new List<Round>();
 
-            foreach (var line in File.ReadAllLines(file)) 
+            foreach (var line in File.ReadAllLines(file))
             {
-                if (readMode == ReadMode.PartOne)
-                {
-                    rounds.Add(GetRoundFromLine(line));
-                }
+                rounds.Add(GetRoundFromLine(line, readMode));
             }
 
             return rounds;
         }
 
-        private static Round GetRoundFromLine(string line)
+        private static Round GetRoundFromLine(string line, ReadMode readMode)
         {
             var letters = line.Split(' ');
-            return new Round(GetOpponentMoveFromLetter(letters[0]), GetYourMoveFromLetter(letters[1]));
+            if (readMode == ReadMode.PartOne)
+            {
+                return new Round(GetOpponentMoveFromLetter(letters[0]), GetYourMoveFromLetter(letters[1]));
+            }
+
+            return new Round(GetOpponentMoveFromLetter(letters[0]), GetYourMoveFromTwoLetters(letters));
         }
 
         private static OpponentMoves GetOpponentMoveFromLetter(string letter)
