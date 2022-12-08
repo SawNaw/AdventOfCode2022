@@ -24,7 +24,7 @@ static void DoPartTwo()
 
 static int GetScore(ReadMode readMode)
 {
-    var rounds = StrategyGuideReader.ReadFromFile(@"input.txt", readMode);
+    var rounds = StrategyGuideReader.GetAllRoundsFromFile(@"input.txt", readMode);
 
     int score = 0;
     foreach (var round in rounds)

@@ -11,7 +11,7 @@ namespace Day02.Tests
         [Test]
         public void TotalScore_ComputesCorrectly_ForPartOne()
         {
-            var rounds = StrategyGuideReader.ReadFromFile(@"testinput.txt", StrategyGuideReader.ReadMode.PartOne);
+            var rounds = StrategyGuideReader.GetAllRoundsFromFile(@"testinput.txt", StrategyGuideReader.ReadMode.PartOne);
             int score = 0;
             foreach (var round in rounds) 
             {
@@ -24,7 +24,7 @@ namespace Day02.Tests
         [Test]
         public void TotalScore_ComputesCorrectly_ForPartTwo()
         {
-            var rounds = StrategyGuideReader.ReadFromFile(@"testinput.txt", StrategyGuideReader.ReadMode.PartTwo);
+            var rounds = StrategyGuideReader.GetAllRoundsFromFile(@"testinput.txt", StrategyGuideReader.ReadMode.PartTwo);
             int score = 0;
             foreach (var round in rounds)
             {

@@ -10,7 +10,7 @@ namespace Day02.Core
 {
     public static class StrategyGuideReader
     {
-        public static IEnumerable<Round> ReadFromFile(string file, ReadMode readMode)
+        public static IEnumerable<Round> GetAllRoundsFromFile(string file, ReadMode readMode)
         {
             if (!File.Exists(file))
             {
