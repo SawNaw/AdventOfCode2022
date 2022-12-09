@@ -19,6 +19,24 @@ namespace Day03.Core
             return lettersAndPriorities[letter];
         }
 
+        internal static int GetSumOfPrioritiesOfAllThreeElfGroups(string filepath)
+        {
+            var file = File.ReadAllLines(filepath);
+            List<Rucksack> threeRucksacks = new();
+            int sum = 0;
+            for (int i = 1; i <= file.Length; i++)
+            {
+                threeRucksacks.Add(new Rucksack(file[i - 1]));
+                if (i % 3 == 0)
+                {
+                    sum += GetPriority(Rucksack.GetCommonItemInAllRucksacks(threeRucksacks));
+                    threeRucksacks.Clear();
+                }
+            }
+
+            return sum;
+        }
+
         internal static int GetSumOfPrioritiesOfAllCommonItems(string filepath)
         {
             var file = File.ReadAllLines(filepath);

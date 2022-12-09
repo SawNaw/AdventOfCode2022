@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework.Constraints;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,29 @@ namespace Day03.Tests
         {
             var rucksack = new Rucksack(s);
             Assert.That(rucksack.GetCommonItem(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void GetCommonItemInAllRucksacks_ReturnsExpected_TestOne()
+        {
+            List<Rucksack> sacks1 = new();
+            sacks1.Add(new Rucksack("vJrwpWtwJgWrhcsFMMfFFhFp"));
+            sacks1.Add(new Rucksack("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"));
+            sacks1.Add(new Rucksack("PmmdzqPrVvPwwTWBwg"));
+
+            Assert.That(Rucksack.GetCommonItemInAllRucksacks(sacks1), Is.EqualTo('r'));
+
+            List<Rucksack> sacks2 = new();
+            sacks2.Add(new Rucksack("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn"));
+            sacks2.Add(new Rucksack("ttgJtRGJQctTZtZT"));
+            sacks2.Add(new Rucksack("CrZsJsPPZsGzwwsLwLmpwMDw"));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(Rucksack.GetCommonItemInAllRucksacks(sacks1), Is.EqualTo('r'));
+                Assert.That(Rucksack.GetCommonItemInAllRucksacks(sacks2), Is.EqualTo('Z'));
+            });
+            
         }
     }
 }
