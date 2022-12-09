@@ -6,7 +6,7 @@ namespace Day04.Tests
 
     {
         [Test]
-        public void Contains_ReturnsTrue_ForFullyContainedSection()
+        public void FullyContains_ReturnsTrue_ForFullyContainedSection()
         {
             var section1 = new Section(2, 8);
             var section2 = new Section(3, 7);
@@ -15,7 +15,7 @@ namespace Day04.Tests
         }
 
         [Test]
-        public void Contains_ReturnsTrue_ForPartiallyContainedSection()
+        public void FullyContains_ReturnsTrue_ForPartiallyContainedSection()
         {
             var section1 = new Section(4, 6);
             var section2 = new Section(5, 6);
@@ -24,10 +24,19 @@ namespace Day04.Tests
         }
 
         [Test]
-        public void Contains_ReturnsFalse_ForExternalSection()
+        public void FullyContains_ReturnsFalse_ForExternalSection()
         {
             var section1 = new Section(5, 7);
             var section2 = new Section(7, 9);
+
+            Assert.That(section1.FullyContains(section2), Is.False);
+        }
+
+        [Test]
+        public void FullyContains_ReturnsFalse_ForOverlapWithoutFullContainment()
+        {
+            var section1 = new Section(5, 7);
+            var section2 = new Section(6, 9);
 
             Assert.That(section1.FullyContains(section2), Is.False);
         }
