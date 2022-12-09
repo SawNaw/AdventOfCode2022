@@ -14,7 +14,7 @@ namespace Day04.Core
 
         /// <example>
         /// The range 2-6 fully contains 3-5.
-        /// The range 2-6 does not fully contain 3-6. There is overlap.
+        /// The range 2-6 does not fully contain 4-7, though there is overlap.
         /// </example>
         public bool FullyContains(Section otherSection) 
         {
@@ -23,21 +23,21 @@ namespace Day04.Core
         }
 
         /// <example>
-        /// The range 2-6 overlaps 4-6.
-        ///    .23456..
-        ///    ...456..
-        ///    
         /// The range 2-6 overlaps 6-8.
         ///    .23456..
         ///    .....678
         ///    
-        /// The range 4-6 overlaps 2-4.
+        /// The range 4-6 overlaps 2-5.
         ///    ...456..
-        ///    .234....
+        ///    .2345...
         ///    
-        /// The range 2-6 overlaps 3-5, and the former also fully contains the latter.
-        /// .23456..
-        /// ..345...
+        /// The range 2-6 overlaps 3-5, and also fully contains it.
+        ///    .23456..
+        ///    ..345...
+        /// 
+        /// The range 2-6 overlaps 4-6, and also fully contains it.
+        ///    .23456..
+        ///    ...456..
         /// </example>
         public bool Overlaps(Section otherSection)
         {

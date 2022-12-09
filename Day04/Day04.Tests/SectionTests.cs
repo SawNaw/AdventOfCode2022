@@ -15,7 +15,7 @@ namespace Day04.Tests
         }
 
         [Test]
-        public void FullyContains_ReturnsTrue_ForPartiallyContainedSection()
+        public void FullyContains_ReturnsTrue_WhenBothSections_HaveIdenticalEnd()
         {
             var section1 = new Section(4, 6);
             var section2 = new Section(5, 6);
