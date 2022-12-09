@@ -50,11 +50,10 @@ namespace Day04.Core
                 }
 
             }
-
             return totalPairs;
         }
 
-        private Section GetSectionFromRange(string range)
+        private static Section GetSectionFromRange(string range)
         {
             var startAndEnd = range.Split('-');
             return new Section(int.Parse(startAndEnd[0]), int.Parse(startAndEnd[1]));
