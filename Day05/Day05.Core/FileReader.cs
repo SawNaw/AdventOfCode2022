@@ -29,5 +29,20 @@ namespace Day05.Core
 
             return list;
         }
+
+        public IEnumerable<MoveInstruction> GetInstructionsFromFile()
+        {
+            var list = new List<MoveInstruction>();
+
+            foreach(var line in Contents) 
+            { 
+                if (line.StartsWith("move"))
+                {
+                    list.Add(new MoveInstruction(line));
+                }
+            }
+
+            return list;
+        }
     }
 }

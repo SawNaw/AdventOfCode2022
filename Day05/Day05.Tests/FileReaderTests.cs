@@ -27,5 +27,33 @@ namespace Day05.Tests
                 Assert.That(linesOfCrates.ElementAt(2).Content.ElementAt(2), Is.EqualTo('P'));
             });
         }
+
+        [Test]
+        public void GetInstructionsFromFile_WorksCorrectly()
+        {
+            var reader = new FileReader(@"testinput.txt");
+            IEnumerable<MoveInstruction> instructions = reader.GetInstructionsFromFile();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(instructions.Count(), Is.EqualTo(4));
+
+                Assert.That(instructions.ElementAt(0).NumberOfItemsToMove, Is.EqualTo(1));
+                Assert.That(instructions.ElementAt(0).Source, Is.EqualTo(2));
+                Assert.That(instructions.ElementAt(0).Destination, Is.EqualTo(1));
+
+                Assert.That(instructions.ElementAt(1).NumberOfItemsToMove, Is.EqualTo(3));
+                Assert.That(instructions.ElementAt(1).Source, Is.EqualTo(1));
+                Assert.That(instructions.ElementAt(1).Destination, Is.EqualTo(3));
+
+                Assert.That(instructions.ElementAt(2).NumberOfItemsToMove, Is.EqualTo(2));
+                Assert.That(instructions.ElementAt(2).Source, Is.EqualTo(2));
+                Assert.That(instructions.ElementAt(2).Destination, Is.EqualTo(1));
+
+                Assert.That(instructions.ElementAt(3).NumberOfItemsToMove, Is.EqualTo(1));
+                Assert.That(instructions.ElementAt(3).Source, Is.EqualTo(1));
+                Assert.That(instructions.ElementAt(3).Destination, Is.EqualTo(2));
+            });
+        }
     }
 }
