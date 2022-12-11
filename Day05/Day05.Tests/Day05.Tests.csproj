@@ -20,4 +20,10 @@
     <ProjectReference Include="..\Day05.Core\Day05.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="testinput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
