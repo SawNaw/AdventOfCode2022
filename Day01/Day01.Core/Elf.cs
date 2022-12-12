@@ -8,19 +8,13 @@ namespace Day01.Core
 {
     public class Elf
     {
-        private readonly IReadOnlyList<int> caloriesOfFoodItems;
-        public int TotalCalories => caloriesOfFoodItems.Sum();
-        public int NumberOfFoodItems => caloriesOfFoodItems.Count;
-
-        public Elf(IEnumerable<int> caloriesOfFoodItems)
-        {
-            this.caloriesOfFoodItems = caloriesOfFoodItems.ToList();
-        }
+        private readonly IEnumerable<int> individualCalories;
+        public int TotalCalories => individualCalories.Sum();
+        public int NumberOfFoodItems => individualCalories.Count();
 
         public Elf(IEnumerable<string> caloriesOfFoodItems)
         {
-            this.caloriesOfFoodItems = caloriesOfFoodItems.Select(c => int.Parse(c))
-                                                          .ToList();
+            this.individualCalories = caloriesOfFoodItems.Select(c => int.Parse(c));
         }
     }
 }
