@@ -1,9 +1,19 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Day01.Core;
+Console.WriteLine("Advent of Code -- Day 01");
+Console.WriteLine();
 
 var file = new FileParser(@"input.txt");
 var result = file.Parse();
+
+Console.WriteLine("Answer to Part 1");
+Console.WriteLine("------------------");
+Console.WriteLine($"The elf carrying the most calories is carrying {result.CalorieAndPositions.Max(c => c.HighestCalorie)} calories.");
+Console.WriteLine();
+Console.WriteLine("Answer to Part 2");
+Console.WriteLine("------------------");
+
 
 // Put a breakpoint here and inspect the contents of the result object.
 Console.WriteLine("Top 3 elves carrying the most calories are:");
