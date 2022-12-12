@@ -15,7 +15,23 @@ namespace Day05.Core
         {
             InitializeStacks(linesOfCrates.First().Content);
             PopulateStacks(linesOfCrates);
+        }
 
+        public void ExecuteInstruction(IEnumerable<MoveInstruction> instructions)
+        {
+            if (instructions.Any(i => i.NumberOfItemsToMove < 1))
+            {
+                throw new ArgumentException("Number of item items to move must be positive.");
+            }
+
+            foreach (var instruction in instructions) 
+            {
+                for (int i = 0; i < instruction.NumberOfItemsToMove; i++)
+                {
+                    var item = _stacks.ElementAt(instruction.Source - 1).Pop();
+                    _stacks.ElementAt(instruction.Destination - 1).Push(item);
+                }
+            }
         }
 
         private void PopulateStacks(IEnumerable<LineOfCrates> linesOfCrates)
@@ -26,7 +42,10 @@ namespace Day05.Core
             {
                 for (int i = 0; i < reversed.Count(); i++)
                 {
-                    _stacks.ElementAt(i).Push(item.Content.ElementAt(i));
+                    if (item.Content.ElementAt(i) != ' ')
+                    {
+                        _stacks.ElementAt(i).Push(item.Content.ElementAt(i));
+                    }
                 }
             }
         }
