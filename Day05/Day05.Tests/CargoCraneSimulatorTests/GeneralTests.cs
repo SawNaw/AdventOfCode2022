@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Day05.Tests
+namespace Day05.Tests.CargoCraneSimulatorTests
 {
-    internal class StacksOfCratesTests
+    internal class GeneralTests
     {
         [Test]
         public void Constructor_AssignsItems_Correctly()
         {
             var lines = new FileReader(@"testinput.txt").GetLinesOfCratesFromFile();
-            var stacks = new StacksOfCrates(lines);
+            var stacks = new CargoCraneSimulator(lines);
 
             Assert.Multiple(() =>
             {
@@ -32,7 +32,7 @@ namespace Day05.Tests
         public void Constructor_AssignsItems_WithCorrectCounts()
         {
             var lines = new FileReader(@"testinput.txt").GetLinesOfCratesFromFile();
-            var stacks = new StacksOfCrates(lines);
+            var stacks = new CargoCraneSimulator(lines);
 
             Assert.Multiple(() =>
             {

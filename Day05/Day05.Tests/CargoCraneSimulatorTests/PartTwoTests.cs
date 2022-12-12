@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Day05.Tests.StacksOfCratesPartOneTests
+namespace Day05.Tests.CargoCraneSimulatorPartTwoTests
 {
-    internal class StacksOfCratesPartTwoTests
+    internal class PartTwoTests
     {
 
         [Test]
         public void ExecuteInstruction_Works_ForOneInstruction()
         {
             var lines = new FileReader(@"testinput.txt").GetLinesOfCratesFromFile();
-            var stacks = new StacksOfCrates(lines);
+            var stacks = new CargoCraneSimulator(lines);
 
             var instructions = new List<MoveInstruction>() { new MoveInstruction("move 2 from 1 to 3") };
             stacks.ExecuteInstructions(instructions, CrateMoverVersions.CrateMover9001);
@@ -43,7 +43,7 @@ namespace Day05.Tests.StacksOfCratesPartOneTests
             var lines = reader.GetLinesOfCratesFromFile();
             var instructions = reader.GetInstructionsFromFile();
 
-            var stacks = new StacksOfCrates(lines);
+            var stacks = new CargoCraneSimulator(lines);
 
             string message = stacks.ExecuteInstructions(instructions, CrateMoverVersions.CrateMover9001);
 
@@ -69,7 +69,7 @@ namespace Day05.Tests.StacksOfCratesPartOneTests
             var reader = new FileReader(@"testinput.txt");
             var lines = reader.GetLinesOfCratesFromFile();
             var instructions = reader.GetInstructionsFromFile();
-            var stacks = new StacksOfCrates(lines);
+            var stacks = new CargoCraneSimulator(lines);
 
             Assert.That(stacks.ExecuteInstructions(instructions, CrateMoverVersions.CrateMover9000), Is.EqualTo("CMZ"));
         }
