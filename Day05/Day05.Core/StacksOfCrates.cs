@@ -13,18 +13,20 @@ namespace Day05.Core
 
         public StacksOfCrates(IEnumerable<LineOfCrates> linesOfCrates)
         {
-            InitializeStacks(linesOfCrates.First().Content);
+            // We need as many crates as there are letters in a line
+            InitializeStackCollection(linesOfCrates.First().Content.Count);
+
             PopulateStacks(linesOfCrates);
         }
 
-        public void ExecuteInstruction(IEnumerable<MoveInstruction> instructions)
+        public string ExecuteInstructions(IEnumerable<MoveInstruction> instructions)
         {
             if (instructions.Any(i => i.NumberOfItemsToMove < 1))
             {
                 throw new ArgumentException("Number of item items to move must be positive.");
             }
 
-            foreach (var instruction in instructions) 
+            foreach (var instruction in instructions)
             {
                 for (int i = 0; i < instruction.NumberOfItemsToMove; i++)
                 {
@@ -32,6 +34,18 @@ namespace Day05.Core
                     _stacks.ElementAt(instruction.Destination - 1).Push(item);
                 }
             }
+
+            return CreateMessageFromTopItemOfEveryStack();
+        }
+
+        private string CreateMessageFromTopItemOfEveryStack()
+        {
+            StringBuilder s = new();
+            foreach (var stack in _stacks)
+            {
+                s.Append(stack.First());
+            }
+            return s.ToString();
         }
 
         private void PopulateStacks(IEnumerable<LineOfCrates> linesOfCrates)
@@ -40,7 +54,7 @@ namespace Day05.Core
 
             foreach (var item in reversed)
             {
-                for (int i = 0; i < reversed.Count(); i++)
+                for (int i = 0; i < Content.Count(); i++)
                 {
                     if (item.Content.ElementAt(i) != ' ')
                     {
@@ -50,10 +64,10 @@ namespace Day05.Core
             }
         }
 
-        private void InitializeStacks(IReadOnlyCollection<char> line)
+        private void InitializeStackCollection(int numberOfStacksNeeded)
         {
             // Add a stack for every item in the line
-            foreach (var item in line)
+            for (int i = 0; i < numberOfStacksNeeded; i++)
             {
                 _stacks.Add(new Stack<char>());
             }

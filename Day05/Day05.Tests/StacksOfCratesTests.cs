@@ -49,7 +49,7 @@ namespace Day05.Tests
             var stacks = new StacksOfCrates(lines);
 
             var instructions = new List<MoveInstruction>() { new MoveInstruction("move 1 from 2 to 3") };
-            stacks.ExecuteInstruction(instructions);
+            stacks.ExecuteInstructions(instructions);
 
             Assert.Multiple(() =>
             {
@@ -70,17 +70,13 @@ namespace Day05.Tests
         [Test]
         public void ExecuteInstruction_Works_ForMultipleInstructions()
         {
-            var lines = new FileReader(@"testinput.txt").GetLinesOfCratesFromFile();
-            var stacks = new StacksOfCrates(lines);
-            List<MoveInstruction> instructions = new List<MoveInstruction>()
-            {
-                new MoveInstruction("move 1 from 2 to 1"),
-                new MoveInstruction("move 3 from 1 to 3"),
-                new MoveInstruction("move 2 from 2 to 1"),
-                new MoveInstruction("move 1 from 1 to 2")
-            };
+            var reader = new FileReader(@"testinput.txt");
+            var lines = reader.GetLinesOfCratesFromFile();
+            var instructions = reader.GetInstructionsFromFile();
 
-            stacks.ExecuteInstruction(instructions);
+            var stacks = new StacksOfCrates(lines);
+
+            string message = stacks.ExecuteInstructions(instructions);
 
             Assert.Multiple(() =>
             {
@@ -95,7 +91,20 @@ namespace Day05.Tests
                 Assert.That(stacks.Content.ElementAt(2).ElementAt(2), Is.EqualTo('D'));
                 Assert.That(stacks.Content.ElementAt(2).ElementAt(1), Is.EqualTo('N'));
                 Assert.That(stacks.Content.ElementAt(2).ElementAt(0), Is.EqualTo('Z'));
+
+                Assert.That(message, Is.EqualTo("CMZ"));
             });
+        }
+
+        [Test]
+        public void ExecuteInstruction_Returns_CorrectMessage_UsingTopItem_OfEachStack()
+        {
+            var reader = new FileReader(@"testinput.txt");
+            var lines = reader.GetLinesOfCratesFromFile();
+            var instructions = reader.GetInstructionsFromFile();
+            var stacks = new StacksOfCrates(lines);
+
+            Assert.That(stacks.ExecuteInstructions(instructions), Is.EqualTo("CMZ"));
         }
     }
 }

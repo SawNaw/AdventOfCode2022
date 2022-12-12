@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Day05.Core
 {
@@ -13,19 +15,16 @@ namespace Day05.Core
         public int Destination { get; }
         public MoveInstruction(string text)
         {
-            var numbersOnly = GetNumbersFromLine(text);
+            var numbersOnly = text.Replace("move ", " ")
+                                  .Replace(" from ", " ")
+                                  .Replace(" to ", " ")
+                                  .Trim()
+                                  .Split(" ")
+                                  .Select(x => int.Parse(x));
 
-            NumberOfItemsToMove = numbersOnly.ElementAt(0);
-            Source = numbersOnly.ElementAt(1);
-            Destination = numbersOnly.ElementAt(2);
-        }
-
-        private static IEnumerable<int> GetNumbersFromLine(string text)
-        {
-            return text.Replace("move ", "")
-                       .Replace(" from ", "")
-                       .Replace(" to ", "")
-                       .Select(n => (int)Char.GetNumericValue(n));
+           this.NumberOfItemsToMove = numbersOnly.ElementAt(0);
+           this.Source = numbersOnly.ElementAt(1);
+           this.Destination = numbersOnly.ElementAt(2);
         }
     }
 }
