@@ -19,7 +19,7 @@ namespace Day05.Core
             PopulateStacks(linesOfCrates);
         }
 
-        public string ExecuteInstructions(IEnumerable<MoveInstruction> instructions)
+        public string ExecuteInstructions(IEnumerable<MoveInstruction> instructions, CrateMoverVersions version)
         {
             if (instructions.Any(i => i.NumberOfItemsToMove < 1))
             {
@@ -28,10 +28,31 @@ namespace Day05.Core
 
             foreach (var instruction in instructions)
             {
-                for (int i = 0; i < instruction.NumberOfItemsToMove; i++)
+                if (version == CrateMoverVersions.CrateMover9001)
                 {
-                    var item = _stacks.ElementAt(instruction.Source - 1).Pop();
-                    _stacks.ElementAt(instruction.Destination - 1).Push(item);
+                    var tempStack = new Stack<char>();
+                    for (int i = 0; i < instruction.NumberOfItemsToMove; i++)
+                    {
+                        tempStack.Push(_stacks.ElementAt(instruction.Source - 1).Pop());
+                    }
+                    var reversedTempStack = new Stack<char>(tempStack.Reverse());
+                    for (int i = 0; i < instruction.NumberOfItemsToMove; i++)
+                    {
+                        _stacks.ElementAt(instruction.Destination - 1).Push(reversedTempStack.Pop());
+                    }
+                }
+
+                else if (version == CrateMoverVersions.CrateMover9000)
+                {
+                    for (int i = 0; i < instruction.NumberOfItemsToMove; i++)
+                    {
+                        var item = _stacks.ElementAt(instruction.Source - 1).Pop();
+                        _stacks.ElementAt(instruction.Destination - 1).Push(item);
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException($"Unrecognised CrateMover Version {version}", nameof(version));
                 }
             }
 
@@ -43,7 +64,10 @@ namespace Day05.Core
             StringBuilder s = new();
             foreach (var stack in _stacks)
             {
-                s.Append(stack.First());
+                if (stack.Any())
+                {
+                    s.Append(stack.First());
+                }
             }
             return s.ToString();
         }

@@ -9,8 +9,14 @@ var linesOfCrates = reader.GetLinesOfCratesFromFile();
 var instructions = reader.GetInstructionsFromFile();
 var stacks = new StacksOfCrates(linesOfCrates);
 
-string message = stacks.ExecuteInstructions(instructions);
+string message = stacks.ExecuteInstructions(instructions, CrateMoverVersions.CrateMover9000);
 
 Console.WriteLine("Answer to Part One");
+Console.WriteLine("--------------------------");
+Console.WriteLine($"The message is: {message}");
+
+stacks = new StacksOfCrates(linesOfCrates);
+message = stacks.ExecuteInstructions(instructions, CrateMoverVersions.CrateMover9001);
+Console.WriteLine("Answer to Part Two");
 Console.WriteLine("--------------------------");
 Console.WriteLine($"The message is: {message}");
