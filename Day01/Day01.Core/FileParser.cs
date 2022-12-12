@@ -22,24 +22,18 @@ namespace Day01.Core
             return new ParseResult(parsedLines, highestCalorieListAndPosition);
         }
 
-        private ICollection<CalorieAndPosition> GetThreeHighestCalorieListAndPosition(List<Elf> list)
+        private ICollection<CalorieAndPosition> GetThreeHighestCalorieListAndPosition(IReadOnlyList<Elf> list)
         {
+            var source = new List<Elf>(list);
             List<CalorieAndPosition> topThree = new();
-            var max = list.MaxBy(l => l.TotalCalories);
-            var index = list.FindIndex(l => l.TotalCalories == max.TotalCalories);
-            topThree.Add(new CalorieAndPosition(max.TotalCalories, index));
-            list.Remove(max);
 
-            var max2 = list.MaxBy(l => l.TotalCalories);
-            var index2 = list.FindIndex(l => l.TotalCalories == max2.TotalCalories);
-            topThree.Add(new CalorieAndPosition(max2.TotalCalories, index2));
-            list.Remove(max2);
-
-            var max3 = list.MaxBy(l => l.TotalCalories);
-            var index3 = list.FindIndex(l => l.TotalCalories == max3.TotalCalories);
-            topThree.Add(new CalorieAndPosition(max3.TotalCalories, index3));
-            list.Remove(max3);
-
+            for (int i = 0; i < 3; i++)
+            {
+                var max = source.MaxBy(l => l.TotalCalories);
+                var index = source.FindIndex(l => l.TotalCalories == max.TotalCalories);
+                topThree.Add(new CalorieAndPosition(max.TotalCalories, index));
+                source.Remove(max);
+            }
 
             return topThree;
         }
