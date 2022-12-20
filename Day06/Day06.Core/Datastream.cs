@@ -34,7 +34,7 @@ namespace Day06.Core
             for (int i = 0; i < this.Content.Length - (sequenceSize - 1); i++)
             {
                 var sequence = Content.Substring(i, sequenceSize);
-                if (StringContainsDistinctCharacters(sequence))
+                if (AllCharactersAreUnique(sequence))
                 {
                     return new MarkerData(sequence, i + (sequenceSize - 1));
                 }
@@ -50,7 +50,7 @@ namespace Day06.Core
                                 : StartOfMessageSequenceSize;
         }
 
-        private static bool StringContainsDistinctCharacters(string str)
+        private static bool AllCharactersAreUnique(string str)
         {
             return str.Distinct().Count() == str.Length;
         }
