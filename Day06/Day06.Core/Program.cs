@@ -16,7 +16,8 @@ Console.WriteLine($"The answer is: {answerOne}");
 
 Console.WriteLine("");
 
+var answerTwo = stream.FindFirstStartOfMessageMarker().MarkerPosition + 1;
 
 Console.WriteLine("Answer to Part Two");
 Console.WriteLine("--------------------------");
-Console.WriteLine($"blahblah");
+Console.WriteLine($"The answer is: {answerTwo}");

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Day06.Core
 {
-    internal class StartOfPacketMarkerData
+    internal class MarkerData
     {
         /// <summary>
         /// The substring of unique characters within which the marker was found.
@@ -17,7 +17,7 @@ namespace Day06.Core
         /// The zero-based position of the marker.
         /// </summary>
         public int MarkerPosition { get; }
-        public StartOfPacketMarkerData(string substring, int markerPosition)
+        public MarkerData(string substring, int markerPosition)
         {
             if (substring.Distinct().Count() < substring.Length) 
             { 

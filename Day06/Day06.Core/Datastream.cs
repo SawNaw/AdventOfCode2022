@@ -9,6 +9,7 @@ namespace Day06.Core
     internal class Datastream
     {
         private const int StartOfPacketSequenceSize = 4;
+        private const int StartOfMessageSequenceSize = 14;
         public string Content { get; }
 
         public Datastream(string datastream)
@@ -16,21 +17,40 @@ namespace Day06.Core
             this.Content = datastream;
         }
 
-        public StartOfPacketMarkerData FindFirstStartOfPacketMarker()
+        public MarkerData FindFirstStartOfPacketMarker()
         {
-            for (int i = 0; i < this.Content.Length - 3; i++) 
+            return FindFirstStartMarker(MarkerTypes.StartOfPacket);
+        }
+
+        public MarkerData FindFirstStartOfMessageMarker()
+        {
+            return FindFirstStartMarker(MarkerTypes.StartOfMessage);
+        }
+
+        private MarkerData FindFirstStartMarker(MarkerTypes markerType)
+        {
+            int sequenceSize = GetSequenceLength(markerType);
+
+            for (int i = 0; i < this.Content.Length - (sequenceSize - 1); i++)
             {
-                var fourLetterSubstring = Content.Substring(i, StartOfPacketSequenceSize);
-                if (StringContainsDistinctCharacters(fourLetterSubstring))
+                var sequence = Content.Substring(i, sequenceSize);
+                if (StringContainsDistinctCharacters(sequence))
                 {
-                    return new StartOfPacketMarkerData(fourLetterSubstring, i + 3);
+                    return new MarkerData(sequence, i + (sequenceSize - 1));
                 }
             }
 
             throw new ArgumentException("Marker not found: are you sure the input file is correct?");
         }
 
-        private static bool StringContainsDistinctCharacters(string str) 
+        private int GetSequenceLength(MarkerTypes markerTypes)
+        {
+            return markerTypes == MarkerTypes.StartOfPacket
+                                ? StartOfPacketSequenceSize
+                                : StartOfMessageSequenceSize;
+        }
+
+        private static bool StringContainsDistinctCharacters(string str)
         {
             return str.Distinct().Count() == str.Length;
         }
