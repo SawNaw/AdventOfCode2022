@@ -16,19 +16,18 @@ namespace Day06.Core
             this.Content = datastream;
         }
 
-        public IEnumerable<StartOfPacketMarkerData> FindAllMarkers()
+        public StartOfPacketMarkerData FindFirstStartOfPacketMarker()
         {
-            List<StartOfPacketMarkerData> markerData = new();
-
             for (int i = 0; i < this.Content.Length - 3; i++) 
             {
                 var fourLetterSubstring = Content.Substring(i, StartOfPacketSequenceSize);
                 if (StringContainsDistinctCharacters(fourLetterSubstring))
                 {
-                    markerData.Add(new StartOfPacketMarkerData(fourLetterSubstring, i + 3));
+                    return new StartOfPacketMarkerData(fourLetterSubstring, i + 3);
                 }
             }
-            return markerData;
+
+            throw new ArgumentException("Marker not found: are you sure the input file is correct?");
         }
 
         private static bool StringContainsDistinctCharacters(string str) 

@@ -8,14 +8,25 @@ namespace Day06.Tests
         [TestCase("nppdvjthqldpwncqszvftbrmjlhg", 6)]
         [TestCase("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 10)]
         [TestCase("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 11)]
-        public void First_Marker_Detected_Correctly(string input, int expected)
+        public void First_StartofPacket_Marker_Detected_Correctly(string input, int expected)
         {
             var stream = new Datastream(input);
 
             // Collections are zero-based, the problem is not, therefore adjust by one.
-            Assert.That(stream.FindAllMarkers().First().MarkerPosition, Is.EqualTo(expected - 1)); 
+            Assert.That(stream.FindFirstStartOfPacketMarker().MarkerPosition, Is.EqualTo(expected - 1)); 
         }
 
+        [TestCase("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 19)]
+        [TestCase("bvwbjplbgvbhsrlpgdmjqwftvncz", 23)]
+        [TestCase("nppdvjthqldpwncqszvftbrmjlhg", 23)]
+        [TestCase("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 29)]
+        [TestCase("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 26)]
+        public void First_StartOfMessage_Marker_Detected_Correctly(string input, int expected)
+        {
+            var stream = new Datastream(input);
 
+            // Collections are zero-based, the problem is not, therefore adjust by one.
+           // Assert.That(stream.FindFirstStartOfMessageMarker().MarkerPosition, Is.EqualTo(expected - 1));
+        }
     }
 }
