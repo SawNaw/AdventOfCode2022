@@ -43,7 +43,7 @@ namespace Day06.Core
             throw new ArgumentException("Marker not found: are you sure the input file is correct?");
         }
 
-        private int GetSequenceLength(MarkerTypes markerTypes)
+        private static int GetSequenceLength(MarkerTypes markerTypes)
         {
             return markerTypes == MarkerTypes.StartOfPacket
                                 ? StartOfPacketSequenceSize
