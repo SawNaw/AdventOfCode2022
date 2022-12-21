@@ -17,17 +17,17 @@ namespace Day06.Core
             this.Content = datastream;
         }
 
-        public MarkerData FindFirstStartOfPacketMarker()
+        public int FindFirstStartOfPacketMarker()
         {
             return FindFirstStartMarker(MarkerTypes.StartOfPacket);
         }
 
-        public MarkerData FindFirstStartOfMessageMarker()
+        public int FindFirstStartOfMessageMarker()
         {
             return FindFirstStartMarker(MarkerTypes.StartOfMessage);
         }
 
-        private MarkerData FindFirstStartMarker(MarkerTypes markerType)
+        private int FindFirstStartMarker(MarkerTypes markerType)
         {
             int sequenceSize = GetSequenceLength(markerType);
 
@@ -36,7 +36,7 @@ namespace Day06.Core
                 var sequence = Content.Substring(i, sequenceSize);
                 if (AllCharactersAreUnique(sequence))
                 {
-                    return new MarkerData(sequence, i + (sequenceSize - 1));
+                    return i + (sequenceSize - 1);
                 }
             }
 

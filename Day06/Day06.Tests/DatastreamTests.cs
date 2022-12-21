@@ -13,7 +13,7 @@ namespace Day06.Tests
             var stream = new Datastream(input);
 
             // Collections are zero-based, the problem is not, therefore adjust by one.
-            Assert.That(stream.FindFirstStartOfPacketMarker().MarkerPosition, Is.EqualTo(expected - 1)); 
+            Assert.That(stream.FindFirstStartOfPacketMarker(), Is.EqualTo(expected - 1)); 
         }
 
         [TestCase("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 19)]
@@ -26,7 +26,7 @@ namespace Day06.Tests
             var stream = new Datastream(input);
 
             // Collections are zero-based, the problem is not, therefore adjust by one.
-            Assert.That(stream.FindFirstStartOfMessageMarker().MarkerPosition, Is.EqualTo(expected - 1));
+            Assert.That(stream.FindFirstStartOfMessageMarker(), Is.EqualTo(expected - 1));
         }
     }
 }
