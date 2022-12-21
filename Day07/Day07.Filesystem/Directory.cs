@@ -8,10 +8,11 @@ namespace Day07.Filesystem
 {
     internal class Directory : File // in Linux, a directory is just a type of file, so let's use that design here.
     {
+        private const int EmptyDirectorySize = 0;
         private List<File> _content;
         internal IReadOnlyCollection<File> Content => _content;
         internal override int Size => _content.Sum(c => c.Size);
-        public Directory(string name) : base(name, 0)
+        public Directory(string name) : base(name, EmptyDirectorySize)
         {
             _content = new();
         }
