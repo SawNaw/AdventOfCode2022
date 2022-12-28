@@ -3,6 +3,7 @@ using Day07.Filesystem.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,13 +30,31 @@ namespace Day07.Tests
         }
 
         [Test]
-        public void FullTestInput_ProcessesCorrectly()
+        public void FullTestInput_ProcessesCorrectly_ForPartOne()
         {
             var fileSystem = new FileSystem(@"TestInput\testinput.txt");
             fileSystem.ProcessFile();
 
-            Assert.That(fileSystem.TotalSize, Is.EqualTo(48381165));
-            Assert.That(fileSystem.GetTotalSizeForPartOne(fileSystem.RootDirectory), Is.EqualTo(95437));
+            Assert.Multiple(() =>
+            {
+                Assert.That(fileSystem.TotalSize, Is.EqualTo(48381165));
+                Assert.That(fileSystem.GetTotalSizeForPartOne(fileSystem.RootDirectory), Is.EqualTo(95437));
+            });
+            
+        }
+
+        [Test]
+        public void FullTestInput_ProcessesCorrectly_ForPartTwo()
+        {
+            var fileSystem = new FileSystem(@"TestInput\testinput.txt");
+            fileSystem.ProcessFile();
+            fileSystem.GetDeletionCandidatesForPartTwo(fileSystem.RootDirectory);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(fileSystem.DeletionCandidates.MinBy(d => d.Size).Size, Is.EqualTo(24933642));
+            });
+
         }
 
         [Test]

@@ -18,6 +18,8 @@ namespace Day07.Filesystem
         public Directory RootDirectory { get; } = new("/");
         public Directory CurrentDirectory { get; private set; }
         public int TotalSize => RootDirectory.Size;
+        public int UnusedSpace => 70000000 - TotalSize;
+        public List<Directory> DeletionCandidates = new();
 
         public FileSystem(string inputFilePath)
         {
@@ -79,6 +81,22 @@ namespace Day07.Filesystem
                 total += GetTotalSizeForPartOne(item);
             }
             return total;
+        }
+
+        public void GetDeletionCandidatesForPartTwo(Directory d)
+        {
+            var allSubdirectories = d.Content.Where(c => c is Directory).Cast<Directory>();
+            foreach (Directory item in allSubdirectories)
+            {
+                if (UnusedSpace + item.Size >= 30000000)
+                {
+                    DeletionCandidates.Add(item);
+                }
+            }
+            foreach (Directory sub in allSubdirectories)
+            {
+                GetDeletionCandidatesForPartTwo(sub);
+            }
         }
 
         private void ExecuteCdCommand(string cmd)
