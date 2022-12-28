@@ -17,15 +17,16 @@ namespace Day07.Filesystem
             _content = new();
         }
 
-        public void Add(File f)
+        public void Add(File fileOrDirectory)
         {
-            if (_content.Any(x => x.Name == f.Name))
+            if (_content.Any(x => x.Name == fileOrDirectory.Name))
             {
-                throw new InvalidOperationException($"A directory or file with the name {f.Name} already exists.");
+                throw new InvalidOperationException($"A directory or file with the name {fileOrDirectory.Name} already exists.");
             }
             else
             {
-                _content.Add(f);
+                fileOrDirectory.ParentDirectory = this;
+                _content.Add(fileOrDirectory);
             }
         }
     }
