@@ -10,6 +10,11 @@ namespace Day07.Filesystem.Commands
     {
         public LsCommand(string line) : base(line)
         {
+            if (!line.StartsWith("$ cd"))
+            {
+                throw new ArgumentException($"{line} is not a valid cd command.", nameof(line));
+            }
+
         }
     }
 }

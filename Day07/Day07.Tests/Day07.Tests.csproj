@@ -21,10 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="BlankForTestPurposes.txt">
+    <None Update="TestInput\BlankForTestPurposes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="testinput.txt">
+    <None Update="TestInput\SimpleTestInput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestInput\testinput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

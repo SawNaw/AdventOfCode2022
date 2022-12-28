@@ -12,6 +12,7 @@ namespace Day07.Filesystem
         private List<File> _content;
         internal IReadOnlyCollection<File> Content => _content;
         internal override int Size => _content.Sum(c => c.Size);
+        internal int TotalSizeOfAllLessThanHundredThousand => _content.Sum(c => c.Size <= 100000 ? c.Size : 0);
         public Directory(string name) : base(name, EmptyDirectorySize)
         {
             _content = new();
