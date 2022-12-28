@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Day07.Filesystem.Commands;
 
 namespace Day07.Filesystem
 {
@@ -15,11 +14,12 @@ namespace Day07.Filesystem
     internal class FileSystem
     {
         private readonly string[] _inputFileContent;
+        private readonly List<Directory> DeletionCandidates = new();
         public Directory RootDirectory { get; } = new("/");
         public Directory CurrentDirectory { get; private set; }
         public int TotalSize => RootDirectory.Size;
         public int UnusedSpace => 70000000 - TotalSize;
-        public List<Directory> DeletionCandidates = new();
+        public Directory SmallestDeletionCandidate => DeletionCandidates.MinBy(d => d.Size)!;
 
         public FileSystem(string inputFilePath)
         {
@@ -35,11 +35,7 @@ namespace Day07.Filesystem
                 {
                     ExecuteCdCommand(line);
                 }
-                else if (line.StartsWith("$ ls"))
-                {
-                    ExecuteLsCommand(line);
-                }
-                else // at this point, the line represents a file or a directory
+                else
                 {
                     var outputLine = new LineOfOutput(line);
                     if (outputLine.IsFile)
@@ -51,19 +47,6 @@ namespace Day07.Filesystem
                         CurrentDirectory.Add(new Directory(outputLine.Name));
                     }
                 }
-            }
-        }
-
-        public void ExecuteCommand(string command)
-        {
-            if (command.StartsWith("$ cd"))
-            {
-                ExecuteCdCommand(command);
-            }
-
-            else
-            {
-                throw new ArgumentException($"Unrecognised command {command}", nameof(command));
             }
         }
 
@@ -86,6 +69,8 @@ namespace Day07.Filesystem
         public void GetDeletionCandidatesForPartTwo(Directory d)
         {
             var allSubdirectories = d.Content.Where(c => c is Directory).Cast<Directory>();
+
+            // Iterate over all subdirectories, identify deletion candidates
             foreach (Directory item in allSubdirectories)
             {
                 if (UnusedSpace + item.Size >= 30000000)
@@ -93,6 +78,8 @@ namespace Day07.Filesystem
                     DeletionCandidates.Add(item);
                 }
             }
+
+            // Iterate over all subdiretories again, this time entering each subdirectory.
             foreach (Directory sub in allSubdirectories)
             {
                 GetDeletionCandidatesForPartTwo(sub);
@@ -111,17 +98,13 @@ namespace Day07.Filesystem
 
             if (argument == "..")
             {
-                CurrentDirectory = CurrentDirectory.ParentDirectory ?? throw new ArgumentException("This directory has no parent!"); 
+                CurrentDirectory = CurrentDirectory.ParentDirectory ?? throw new ArgumentException("This directory has no parent!");
             }
 
             if (CurrentDirectory.Content.Any(c => c.Name == argument))
             {
                 CurrentDirectory = (Directory)CurrentDirectory.Content.Single(c => c.Name == argument);
             }
-        }
-
-        private void ExecuteLsCommand(string cmd)
-        {
         }
     }
 }

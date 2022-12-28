@@ -1,5 +1,4 @@
 ﻿using Day07.Filesystem;
-using Day07.Filesystem.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +39,7 @@ namespace Day07.Tests
                 Assert.That(fileSystem.TotalSize, Is.EqualTo(48381165));
                 Assert.That(fileSystem.GetTotalSizeForPartOne(fileSystem.RootDirectory), Is.EqualTo(95437));
             });
-            
+
         }
 
         [Test]
@@ -50,25 +49,7 @@ namespace Day07.Tests
             fileSystem.ProcessFile();
             fileSystem.GetDeletionCandidatesForPartTwo(fileSystem.RootDirectory);
 
-            Assert.Multiple(() =>
-            {
-                Assert.That(fileSystem.DeletionCandidates.MinBy(d => d.Size).Size, Is.EqualTo(24933642));
-            });
-
-        }
-
-        [Test]
-        public void ExecutingLsCommand_AddsAllContent_ToCurrentDirectory()
-        {
-            var fs = new FileSystem(@"TestInput\BlankForTestPurposes.txt");
-            //fs.ExecuteCommand(new Command("dir a"));
-        }
-
-        [Test]
-        public void ProcessDirectory_AddsDirectory_ToContent()
-        {
-            
-            //var cmd = new Command("")
+            Assert.That(fileSystem.SmallestDeletionCandidate.Size, Is.EqualTo(24933642));
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Day01.Core
             return new ParseResult(parsedLines, highestCalorieListAndPosition);
         }
 
-        private ICollection<CalorieAndPosition> GetThreeHighestCalorieListAndPosition(IEnumerable<Elf> list)
+        private static ICollection<CalorieAndPosition> GetThreeHighestCalorieListAndPosition(IEnumerable<Elf> list)
         {
             var source = new List<Elf>(list); // copy the list before we mess around with it
             List<CalorieAndPosition> topThree = new();
@@ -32,8 +32,8 @@ namespace Day01.Core
             for (int i = 0; i < 3; i++)
             {
                 var max = source.MaxBy(l => l.TotalCalories);
-                var index = source.FindIndex(l => l.TotalCalories == max.TotalCalories);
-                topThree.Add(new CalorieAndPosition(max.TotalCalories, index));
+                var index = source.FindIndex(l => l.TotalCalories == max!.TotalCalories);
+                topThree.Add(new CalorieAndPosition(max!.TotalCalories, index));
                 source.Remove(max);
             }
 

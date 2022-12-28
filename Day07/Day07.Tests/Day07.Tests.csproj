@@ -21,9 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestInput\BlankForTestPurposes.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="TestInput\SimpleTestInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

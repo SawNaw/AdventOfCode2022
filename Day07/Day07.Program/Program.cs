@@ -16,4 +16,4 @@ fileSystem.GetDeletionCandidatesForPartTwo(fileSystem.RootDirectory);
 
 Console.WriteLine("Answer to Part Two");
 Console.WriteLine("--------------------------");
-Console.WriteLine($"The answer is: {fileSystem.DeletionCandidates.MinBy(d => d.Size).Size}");
+Console.WriteLine($"The answer is: {fileSystem.SmallestDeletionCandidate.Size}");
