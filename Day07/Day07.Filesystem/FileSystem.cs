@@ -15,14 +15,14 @@ namespace Day07.Filesystem
     internal class FileSystem
     {
         private readonly string[] _inputFileContent;
-        private readonly Directory _rootDirectory = new("/");
+        public Directory RootDirectory { get; } = new("/");
         public Directory CurrentDirectory { get; private set; }
-        public int TotalSize => _rootDirectory.Size;
+        public int TotalSize => RootDirectory.Size;
 
         public FileSystem(string inputFilePath)
         {
             _inputFileContent = System.IO.File.ReadAllLines(inputFilePath);
-            CurrentDirectory = _rootDirectory;
+            CurrentDirectory = RootDirectory;
         }
 
         public void ProcessFile()
@@ -65,10 +65,19 @@ namespace Day07.Filesystem
             }
         }
 
-        public int GetTotalSizeForPartOne()
+        public int GetTotalSizeForPartOne(Directory d)
         {
             int total = 0;
-            total += GetTotalSizeForPartOneCore(_rootDirectory);
+            var allSubdirectories = d.Content.Where(c => c is Directory).Cast<Directory>();
+            foreach (Directory item in allSubdirectories)
+            {
+                if (item.Size <= 100000)
+                {
+                    total += item.Size;
+                }
+
+                total += GetTotalSizeForPartOne(item);
+            }
             return total;
         }
 
@@ -95,21 +104,6 @@ namespace Day07.Filesystem
 
         private void ExecuteLsCommand(string cmd)
         {
-        }
-
-        private int GetTotalSizeForPartOneCore(Directory d)
-        {
-            int total = 0;
-            foreach (Directory item in d.Content.Where(c => c is Directory)) 
-            {
-                if (item.Size <= 100000)
-                {
-                    total += item.Size;
-                }
-
-                total += GetTotalSizeForPartOneCore(item);
-            }
-            return total;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Day07.Tests
             fileSystem.ProcessFile();
 
             Assert.That(fileSystem.TotalSize, Is.EqualTo(48381165));
-            Assert.That(fileSystem.GetTotalSizeForPartOne(), Is.EqualTo(95437));
+            Assert.That(fileSystem.GetTotalSizeForPartOne(fileSystem.RootDirectory), Is.EqualTo(95437));
         }
 
         [Test]
