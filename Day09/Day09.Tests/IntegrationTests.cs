@@ -15,7 +15,7 @@ namespace Day09.Tests
         public void TestInput_ProcessesCorrectly_ForPartTwo()
         {
             var simulator = new MotionSimulator(@"TestInputTwo.txt", MotionSimulator.Modes.PartTwo);
-            Assert.That(simulator.ExecuteInstructionsPart2(), Is.EqualTo(36));
+            Assert.That(simulator.ExecuteInstructions(), Is.EqualTo(36));
         }
     }
 }
