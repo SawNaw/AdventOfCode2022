@@ -1,5 +1,9 @@
 ﻿namespace Day09.RopeMotionSimulator
 {
+    /// <summary>
+    /// Represents a knot at a specific location in a two-dimensional plane. 
+    /// Provides methods to shift the position.
+    /// </summary>
     internal class Knot
     {
         public Coordinate Position;

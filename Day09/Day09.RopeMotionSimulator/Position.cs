@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Day09.RopeMotionSimulator
 {
     /// <summary>
-    /// Provides methods to determine the relative positions of two <seealso cref="Knot"/> objects.
+    /// Provides methods to determine the relative positions of two Knots.
     /// </summary>
     internal static class Position
     {
