@@ -1,16 +1,9 @@
-﻿using Day09.RopeMotionSimulator.RopeComponents;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day09.RopeMotionSimulator.RopeComponents
+﻿namespace Day09.RopeMotionSimulator
 {
-    internal abstract class RopeComponent
+    internal class Knot
     {
         public Coordinate Position;
-        public RopeComponent()
+        public Knot()
         {
             Position = new Coordinate(0, 0);
         }

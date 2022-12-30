@@ -1,50 +1,65 @@
-﻿using Day09.RopeMotionSimulator.RopeComponents;
-
-namespace Day09.RopeMotionSimulator
+﻿namespace Day09.RopeMotionSimulator
 {
+    /// <summary>
+    /// Simulates the movement of a knotted rope as dictated by instructions.
+    /// </summary>
     internal class MotionSimulator
     {
-        private IEnumerable<Instruction> instructions;
-        private HashSet<Coordinate> visitedCoordinates = new();
-        private KnottedRope knottedRope;
+        private readonly IEnumerable<Instruction> instructions;
+        private readonly HashSet<Coordinate> visitedCoordinates = new();
+        private readonly KnottedRope rope;
 
-        internal MotionSimulator(string instructionFilePath, Modes mode)
+        // To examine pairs of knots while traversing down the rope for part 2.
+        private Knot frontKnot;
+        private Knot backKnot;
+
+        internal MotionSimulator(string instructionFilePath, int numberOfKnots)
         {
-            instructions = GetInstructionsFromFile(instructionFilePath);
+            instructions = LoadInstructions(instructionFilePath);
             visitedCoordinates.Add(new Coordinate(0, 0));
-            knottedRope = (mode == Modes.PartOne ? new KnottedRope(2) : new KnottedRope(10));
+
+            rope = new KnottedRope(numberOfKnots);
+
+            frontKnot = rope.Head;
+            backKnot = rope.Tail;
         }
 
-        public int ExecuteInstructions()
+        /// <summary>
+        /// Executes all movement instructions from the input file.
+        /// </summary>
+        /// <returns>The number of distinct visited coordinates.</returns>
+        public int ExecuteAllInstructions()
         {
             foreach (var instruction in instructions)
             {
-                ExecuteSingleInstruction(instruction);
+                ExecuteInstruction(instruction);
             }
 
             return visitedCoordinates.Count;
         }
 
-        private void ExecuteSingleInstruction(Instruction instruction)
+        private void ExecuteInstruction(Instruction instruction)
         {
             for (int i = 1; i <= instruction.Steps; i++)
             {
+                // Move the head once
                 MoveHead(instruction);
 
-                for (int j = 1; j < knottedRope.Knots.Count; j++)
+                // Move the other knots if necessary
+                for (int j = 1; j < rope.Knots.Count; j++)
                 {
-                    knottedRope.TemporaryTail = knottedRope.Knots.ElementAt(j);
-                    knottedRope.TemporaryHead = knottedRope.Knots.ElementAt(j - 1);
+                    backKnot = rope.Knots.ElementAt(j);
+                    frontKnot = rope.Knots.ElementAt(j - 1);
 
-                    if (IsNotTouching())
+                    if (Position.IsNotTouching(frontKnot, backKnot))
                     {
                         MoveTail();
                     }
                 }
 
-                if (!visitedCoordinates.Contains(knottedRope.TrueTail.Position))
+                if (!visitedCoordinates.Contains(rope.Tail.Position))
                 {
-                    visitedCoordinates.Add(knottedRope.TrueTail.Position);
+                    visitedCoordinates.Add(rope.Tail.Position);
                 }
             }
 
@@ -55,60 +70,60 @@ namespace Day09.RopeMotionSimulator
             switch (instruction.Direction)
             {
                 case (Direction.Up):
-                    knottedRope.TrueHead.MoveUp();
+                    rope.Head.MoveUp();
                     break;
 
                 case (Direction.Down):
-                    knottedRope.TrueHead.MoveDown();
+                    rope.Head.MoveDown();
                     break;
 
                 case (Direction.Left):
-                    knottedRope.TrueHead.MoveLeft();
+                    rope.Head.MoveLeft();
                     break;
 
                 case (Direction.Right):
-                    knottedRope.TrueHead.MoveRight();
+                    rope.Head.MoveRight();
                     break;
             }
         }
 
         private void MoveTail()
         {
-            if (IsTouching())
+            if (Position.IsTouching(frontKnot, backKnot))
             {
                 throw new InvalidOperationException("The tail should not be moved when it is touching the head.");
             }
-            if (HeadIsDirectlyAbove())
+            if (Position.FrontKnotIsDirectlyAbove(frontKnot, backKnot))
             {
-                knottedRope.TemporaryTail.MoveUp();
+                backKnot.MoveUp();
             }
-            else if (HeadIsDirectlyBelow())
+            else if (Position.FrontKnotIsDirectlyBelow(frontKnot, backKnot))
             {
-                knottedRope.TemporaryTail.MoveDown();
+                backKnot.MoveDown();
             }
-            else if (HeadIsDirectlyToTheLeft())
+            else if (Position.FrontKnotIsDirectlyToTheLeft(frontKnot, backKnot))
             {
-                knottedRope.TemporaryTail.MoveLeft();
+                backKnot.MoveLeft();
             }
-            else if (HeadIsDirectlyToTheRight())
+            else if (Position.FrontKnotIsDirectlyToTheRight(frontKnot, backKnot))
             {
-                knottedRope.TemporaryTail.MoveRight();
+                backKnot.MoveRight();
             }
-            else if (HeadIsAboveAndToTheRight())
+            else if (Position.FrontKnotIsAboveAndToTheRight(frontKnot, backKnot))
             {
-                knottedRope.TemporaryTail.MoveDiagonallyUpAndRight();
+                backKnot.MoveDiagonallyUpAndRight();
             }
-            else if (HeadIsAboveAndToTheLeft())
+            else if (Position.FrontKnotIsAboveAndToTheLeft(frontKnot, backKnot))
             {
-                knottedRope.TemporaryTail.MoveDiagonallyUpLeft();
+                backKnot.MoveDiagonallyUpLeft();
             }
-            else if (HeadIsBelowAndToTheRight())
+            else if (Position.FrontKnotIsBelowAndToTheRight(frontKnot, backKnot))
             {
-                knottedRope.TemporaryTail.MoveDiagonallyDownRight();
+                backKnot.MoveDiagonallyDownRight();
             }
-            else if (HeadIsBelowAndToTheLeft())
+            else if (Position.FrontKnotIsBelowAndToTheLeft(frontKnot, backKnot))
             {
-                knottedRope.TemporaryTail.MoveDiagonallyDownLeft();
+                backKnot.MoveDiagonallyDownLeft();
             }
             else
             {
@@ -117,107 +132,9 @@ namespace Day09.RopeMotionSimulator
 
         }
 
-
-
-        private bool HeadIsDirectlyAbove()
+        private static IEnumerable<Instruction> LoadInstructions(string filePath)
         {
-            return knottedRope.TemporaryHead.Position.X == knottedRope.TemporaryTail.Position.X
-                && knottedRope.TemporaryHead.Position.Y > knottedRope.TemporaryTail.Position.Y;
-        }
-
-        private bool HeadIsDirectlyBelow()
-        {
-            return knottedRope.TemporaryHead.Position.X == knottedRope.TemporaryTail.Position.X
-                && knottedRope.TemporaryHead.Position.Y < knottedRope.TemporaryTail.Position.Y;
-        }
-
-        private bool HeadIsDirectlyToTheLeft()
-        {
-            return knottedRope.TemporaryHead.Position.X < knottedRope.TemporaryTail.Position.X
-                && knottedRope.TemporaryHead.Position.Y == knottedRope.TemporaryTail.Position.Y;
-        }
-
-        private bool HeadIsDirectlyToTheRight()
-        {
-            return knottedRope.TemporaryHead.Position.X > knottedRope.TemporaryTail.Position.X
-                && knottedRope.TemporaryHead.Position.Y == knottedRope.TemporaryTail.Position.Y;
-        }
-
-        private bool HeadIsAboveAndToTheRight()
-        {
-            return knottedRope.TemporaryHead.Position.X > knottedRope.TemporaryTail.Position.X
-                && knottedRope.TemporaryHead.Position.Y > knottedRope.TemporaryTail.Position.Y;
-        }
-
-        private bool HeadIsAboveAndToTheLeft()
-        {
-            return knottedRope.TemporaryHead.Position.X < knottedRope.TemporaryTail.Position.X
-                && knottedRope.TemporaryHead.Position.Y > knottedRope.TemporaryTail.Position.Y;
-        }
-
-        private bool HeadIsBelowAndToTheRight()
-        {
-            return knottedRope.TemporaryHead.Position.X > knottedRope.TemporaryTail.Position.X
-                && knottedRope.TemporaryHead.Position.Y < knottedRope.TemporaryTail.Position.Y;
-        }
-
-        private bool HeadIsBelowAndToTheLeft()
-        {
-            return knottedRope.TemporaryHead.Position.X < knottedRope.TemporaryTail.Position.X
-                && knottedRope.TemporaryHead.Position.Y < knottedRope.TemporaryTail.Position.Y;
-        }
-
-        private bool IsNotTouching() => !IsTouching();
-
-        private bool IsTouching()
-        {
-            return IsOverlapping()
-                || IsTouchingHorizontallyOrVertically()
-                || IsTouchingDiagonally();
-        }
-        private bool IsOverlapping()
-        {
-            return knottedRope.TemporaryHead.Position.X == knottedRope.TemporaryTail.Position.X
-                && knottedRope.TemporaryHead.Position.Y == knottedRope.TemporaryTail.Position.Y;
-        }
-
-        private bool IsTouchingHorizontallyOrVertically()
-        {
-            // EITHER the X OR Y coordinate differs by one
-            return (IsVerticallyAligned() && HorizontalDistanceIs(1))
-                || (IsHorizontallyAligned() && VerticalDistanceIs(1));
-        }
-
-        private bool HorizontalDistanceIs(int n)
-        {
-            return Math.Abs(knottedRope.TemporaryHead.Position.X - knottedRope.TemporaryTail.Position.X) == n;
-        }
-
-        private bool VerticalDistanceIs(int n)
-        {
-            return Math.Abs(knottedRope.TemporaryHead.Position.Y - knottedRope.TemporaryTail.Position.Y) == n;
-        }
-
-        private bool IsHorizontallyAligned()
-        {
-            return knottedRope.TemporaryHead.Position.X == knottedRope.TemporaryTail.Position.X;
-        }
-
-        private bool IsVerticallyAligned()
-        {
-            return knottedRope.TemporaryHead.Position.Y == knottedRope.TemporaryTail.Position.Y;
-        }
-
-        private bool IsTouchingDiagonally()
-        {
-            // Both X and Y coordinates differ by one
-            return Math.Abs(knottedRope.TemporaryHead.Position.X - knottedRope.TemporaryTail.Position.X) == 1
-                && Math.Abs(knottedRope.TemporaryHead.Position.Y - knottedRope.TemporaryTail.Position.Y) == 1;
-        }
-
-        private IEnumerable<Instruction> GetInstructionsFromFile(string path)
-        {
-            return File.ReadAllLines(path)
+            return File.ReadAllLines(filePath)
                        .Select(x => x.Split(' '))
                        .Select(x => new Instruction(GetDirectionFromLetter(x.First()), int.Parse(x[1])));
 
@@ -231,11 +148,5 @@ namespace Day09.RopeMotionSimulator
             'R' => Direction.Right,
             _ => throw new ArgumentException($"The letter {letter} is not a recognised direction.", nameof(letter)),
         };
-
-        internal enum Modes
-        {
-            PartOne,
-            PartTwo,
-        }
     }
 }
