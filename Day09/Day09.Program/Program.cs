@@ -3,7 +3,7 @@
 Console.WriteLine("Advent Of Code -- Day 09");
 Console.WriteLine("");
 
-var simulator = new MotionSimulator(@"input.txt");
+var simulator = new MotionSimulator(@"input.txt", MotionSimulator.Modes.PartOne);
 
 Console.WriteLine("Answer to Part One");
 Console.WriteLine("--------------------------");

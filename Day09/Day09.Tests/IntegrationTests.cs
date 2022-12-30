@@ -5,10 +5,17 @@ namespace Day09.Tests
     public class Tests
     {
         [Test]
-        public void TestInput_ProcessesCorrectly()
+        public void TestInput_ProcessesCorrectly_ForPartOne()
         {
-            var simulator = new MotionSimulator(@"testinput.txt");
+            var simulator = new MotionSimulator(@"testinput.txt", MotionSimulator.Modes.PartOne);
             Assert.That(simulator.ExecuteInstructions(), Is.EqualTo(13));
+        }
+
+        [Test]
+        public void TestInput_ProcessesCorrectly_ForPartTwo()
+        {
+            var simulator = new MotionSimulator(@"TestInputTwo.txt", MotionSimulator.Modes.PartTwo);
+            Assert.That(simulator.ExecuteInstructionsPart2(), Is.EqualTo(36));
         }
     }
 }
