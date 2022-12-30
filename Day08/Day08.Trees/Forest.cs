@@ -8,7 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Day08.Trees
 {
     /// <summary>
-    /// Represents a 2x2 rectangle of <see cref="Tree"/> objects.
+    /// Represents a two-dimensional rectangle of <see cref="Tree"/> objects.
     /// </summary>
     internal class Forest
     {
@@ -139,74 +139,66 @@ namespace Day08.Trees
 
         private int GetUpViewingDistance(int x, int y)
         {
-            if (y == 0) return 0;
-            if (y == 1) return 1;
-            if (TreeAt(x, y - 1).Height >= TreeAt(x, y).Height) return 1;
+            if (y == 0) return 0; // no trees above
 
-            int score = 1;
-            for (int nextY = y - 2; nextY >= 0; nextY--)
+            int viewingDistance = 0;
+            for (int nextY = y - 1; nextY >= 0; nextY--) // keep looking up
             {
-                score++;
+                viewingDistance++;
                 if (TreeAt(x, nextY).Height >= TreeAt(x, y).Height)
                 {
                     break;
                 }
             }
-            return score;
+            return viewingDistance;
         }
 
         private int GetDownViewingDistance(int x, int y)
         {
-            if (y == _yMax) return 0;
-            if (y == _yMax - 1) return 1;
-            if (TreeAt(x, y + 1).Height >= TreeAt(x, y).Height) return 1;
+            if (y == _yMax) return 0; // no trees below
 
-            int score = 1;
-            for (int nextY = y + 2; nextY <= _yMax; nextY++)
+            int viewingDistance = 0;
+            for (int nextY = y + 1; nextY <= _yMax; nextY++) // keep looking down
             {
-                score++;
+                viewingDistance++;
                 if (TreeAt(x, nextY).Height >= TreeAt(x, y).Height)
                 {
                     break;
                 }
             }
-            return score;
+            return viewingDistance;
         }
 
         private int GetLeftViewingDistance(int x, int y)
         {
-            if (x == 0) return 0;
-            if (x == 1) return 1;
-            if (TreeAt(x-1, y).Height >= TreeAt(x, y).Height) return 1;
+            if (x == 0) return 0; // no trees to the left
 
-            int score = 1;
-            for (int nextX = x - 2; nextX >= 0; nextX--)
+            int viewingDistance = 0;
+            for (int nextX = x - 1; nextX >= 0; nextX--) // keep looking left
             {
-                score++;
+                viewingDistance++;
                 if (TreeAt(nextX, y).Height >= TreeAt(x, y).Height)
                 {
                     break;
                 }
             }
-            return score;
+            return viewingDistance;
         }
 
         private int GetRightViewingDistance(int x, int y)
         {
-            if (x == _xMax) return 0;
-            if (x == _xMax - 1) return 1;
-            if (TreeAt(x+1, y).Height >= TreeAt(x, y).Height) return 1;
+            if (x == _xMax) return 0; // no trees to the right
 
-            int score = 1;
-            for (int nextX = x + 2; nextX <= _xMax; nextX++)
+            int viewingDistance = 0;
+            for (int nextX = x + 1; nextX <= _xMax; nextX++) // keep looking right
             {
-                score++;
+                viewingDistance++;
                 if (TreeAt(nextX, y).Height >= TreeAt(x, y).Height)
                 {
                     break;
                 }
             }
-            return score;
+            return viewingDistance;
         }
 
         public int GetTotalScenicScore(int x, int y)
