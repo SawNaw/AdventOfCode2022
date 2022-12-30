@@ -11,7 +11,8 @@ Console.WriteLine($"The answer is: {simulator.ExecuteInstructions()}");
 
 Console.WriteLine("");
 
+simulator = new MotionSimulator(@"input.txt", MotionSimulator.Modes.PartTwo);
 
 Console.WriteLine("Answer to Part Two");
 Console.WriteLine("--------------------------");
-Console.WriteLine($"The answer is: ");
+Console.WriteLine($"The answer is: {simulator.ExecuteInstructions()}");
