@@ -55,19 +55,26 @@ namespace Day09.RopeMotionSimulator
 
         private void ExecuteSingleInstruction(Instruction instruction)
         {
-            for (int i = 1; i <= instruction.Steps; i++)
+            for (int j = 1; j < knottedRope.Knots.Count; j++)
             {
-                MoveHead(instruction);
+                knottedRope.Tail = knottedRope.Knots.ElementAt(j);
+                knottedRope.Head = knottedRope.Knots.ElementAt(j - 1);
 
-                if (IsNotTouching())
+                for (int i = 1; i <= instruction.Steps; i++)
                 {
-                    MoveTail();
+                    MoveHead(instruction);
+
+                    if (IsNotTouching())
+                    {
+                        MoveTail();
+                    }
+
+                    if (!visitedCoordinates.Contains(knottedRope.Tail.Position))
+                    {
+                        visitedCoordinates.Add(knottedRope.Tail.Position);
+                    }
                 }
 
-                if (!visitedCoordinates.Contains(knottedRope.Tail.Position))
-                {
-                    visitedCoordinates.Add(knottedRope.Tail.Position);
-                }
             }
         }
 
