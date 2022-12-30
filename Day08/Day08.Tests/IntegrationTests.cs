@@ -1,5 +1,3 @@
-using Day08.Trees;
-
 namespace Day08.Tests
 {
     public class IntegrationTests
@@ -106,7 +104,8 @@ namespace Day08.Tests
         public void Total_Scenic_Score_For_Middle_5_In_Second_Row_Is_4()
         {
             var forest = new Forest(@"testinput.txt");
-            Assert.Equal(4, forest.GetTotalScenicScore(2, 1));
+            var calculator = new ScenicScore(forest);
+            Assert.Equal(4, calculator.CalculateScenicScore(2, 1));
         }
 
         [Fact]

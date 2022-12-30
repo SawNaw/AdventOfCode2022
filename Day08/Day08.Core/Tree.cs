@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Day08.Trees
+namespace Day08.Core
 {
     internal class Tree
     {

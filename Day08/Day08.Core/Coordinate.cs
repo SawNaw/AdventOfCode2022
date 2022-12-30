@@ -6,7 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Day08.Trees
+namespace Day08.Core
 {
     internal struct Coordinate
     {

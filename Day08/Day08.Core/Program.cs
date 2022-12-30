@@ -1,9 +1,7 @@
-﻿using Day08.Trees;
-
-Console.WriteLine("Advent Of Code -- Day 08");
+﻿Console.WriteLine("Advent Of Code -- Day 08");
 Console.WriteLine("");
 
-var forest = new Forest(@"input.txt");
+var forest = new Day08.Core.Forest(@"input.txt");
 
 Console.WriteLine("Answer to Part One");
 Console.WriteLine("--------------------------");
