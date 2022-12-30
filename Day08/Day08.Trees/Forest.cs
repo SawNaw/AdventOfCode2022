@@ -12,17 +12,16 @@ namespace Day08.Trees
     /// </summary>
     internal class Forest
     {
-        private readonly double _xMax;
-        private readonly double _yMax;
+        private readonly double _xMax; // X-coordinate of all trees on the right edge
+        private readonly double _yMax; // Y-coordinate of all trees on the bottom edge
         private int _highestScenicScore = 0;
         private readonly List<List<Tree>> _trees = new();
         private readonly List<Coordinate> _visibleTrees = new();
 
         public Forest(string path)
         {
-            var fileContents = File.ReadAllLines(path);
-
-            _xMax = fileContents.First().Length - 1;
+            var fileContents = File.ReadAllLines(path); // Each array element represents a horizontal row of trees
+            _xMax = fileContents.First().Length - 1; // Doesn't have to be First(), since all rows are the same length. But we have to pick one.
             _yMax = fileContents.Length - 1;
 
             CreateForestOfTrees(fileContents);

@@ -48,6 +48,7 @@ namespace Day08.Tests
             Assert.True(forest.IsVisibleFromRight(x, y));
             Assert.True(forest.IsVisibleFromTop(x, y));
             Assert.True(forest.IsVisibleFromBottom(x, y));
+            Assert.True(forest.IsVisibleFromAnyDirection(x, y));
         }
     }
 }
