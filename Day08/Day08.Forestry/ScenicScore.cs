@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Day08.Core
+namespace Day08.Forestry
 {
     internal class ScenicScore
     {

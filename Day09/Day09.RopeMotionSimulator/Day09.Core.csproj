@@ -7,14 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Day08.Forestry\Day08.Forestry.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

@@ -1,7 +1,7 @@
 ﻿Console.WriteLine("Advent Of Code -- Day 08");
 Console.WriteLine("");
 
-var forest = new Day08.Core.Forest(@"input.txt");
+var forest = new Day08.Forestry.Forest(@"input.txt");
 
 Console.WriteLine("Answer to Part One");
 Console.WriteLine("--------------------------");
