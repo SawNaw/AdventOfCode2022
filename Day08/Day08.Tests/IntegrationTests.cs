@@ -101,5 +101,19 @@ namespace Day08.Tests
             var forest = new Forest(@"testinput.txt");
             Assert.Equal(21, forest.GetNumberOfVisibleTrees());
         }
+
+        [Fact]
+        public void Total_Scenic_Score_For_Middle_5_In_Second_Row_Is_4()
+        {
+            var forest = new Forest(@"testinput.txt");
+            Assert.Equal(4, forest.GetTotalScenicScore(2, 1));
+        }
+
+        [Fact]
+        public void Highest_Scenic_Score_For_Test_Input_Equals_8()
+        {
+            var forest = new Forest(@"testinput.txt");
+            Assert.Equal(8, forest.FindHighestScenicScore());
+        }
     }
 }

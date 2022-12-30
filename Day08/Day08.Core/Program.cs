@@ -14,4 +14,4 @@ Console.WriteLine("");
 
 Console.WriteLine("Answer to Part Two");
 Console.WriteLine("--------------------------");
-Console.WriteLine($"The answer is: ");
+Console.WriteLine($"The answer is: {forest.FindHighestScenicScore()}");

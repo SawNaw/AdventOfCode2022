@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Day08.Trees
 {
@@ -13,6 +14,7 @@ namespace Day08.Trees
     {
         private readonly double _xMax;
         private readonly double _yMax;
+        private int _highestScenicScore = 0;
         private readonly List<List<Tree>> _trees = new();
         private readonly List<Coordinate> _visibleTrees = new();
 
@@ -28,10 +30,10 @@ namespace Day08.Trees
 
         public int GetNumberOfVisibleTrees()
         {
-            for (int i = 0; i <= _yMax; i++) 
-            { 
-                for (int j = 0; j <= _xMax; j++) 
-                { 
+            for (int i = 0; i <= _yMax; i++)
+            {
+                for (int j = 0; j <= _xMax; j++)
+                {
                     if (IsVisibleFromAnyDirection(j, i))
                     {
                         _visibleTrees.Add(new Coordinate(j, i));
@@ -133,6 +135,103 @@ namespace Day08.Trees
             }
 
             return true;
+        }
+
+        private int GetUpViewingDistance(int x, int y)
+        {
+            if (y == 0) return 0;
+            if (y == 1) return 1;
+            if (TreeAt(x, y - 1).Height >= TreeAt(x, y).Height) return 1;
+
+            int score = 1;
+            for (int nextY = y - 2; nextY >= 0; nextY--)
+            {
+                score++;
+                if (TreeAt(x, nextY).Height >= TreeAt(x, y).Height)
+                {
+                    break;
+                }
+            }
+            return score;
+        }
+
+        private int GetDownViewingDistance(int x, int y)
+        {
+            if (y == _yMax) return 0;
+            if (y == _yMax - 1) return 1;
+            if (TreeAt(x, y + 1).Height >= TreeAt(x, y).Height) return 1;
+
+            int score = 1;
+            for (int nextY = y + 2; nextY <= _yMax; nextY++)
+            {
+                score++;
+                if (TreeAt(x, nextY).Height >= TreeAt(x, y).Height)
+                {
+                    break;
+                }
+            }
+            return score;
+        }
+
+        private int GetLeftViewingDistance(int x, int y)
+        {
+            if (x == 0) return 0;
+            if (x == 1) return 1;
+            if (TreeAt(x-1, y).Height >= TreeAt(x, y).Height) return 1;
+
+            int score = 1;
+            for (int nextX = x - 2; nextX >= 0; nextX--)
+            {
+                score++;
+                if (TreeAt(nextX, y).Height >= TreeAt(x, y).Height)
+                {
+                    break;
+                }
+            }
+            return score;
+        }
+
+        private int GetRightViewingDistance(int x, int y)
+        {
+            if (x == _xMax) return 0;
+            if (x == _xMax - 1) return 1;
+            if (TreeAt(x+1, y).Height >= TreeAt(x, y).Height) return 1;
+
+            int score = 1;
+            for (int nextX = x + 2; nextX <= _xMax; nextX++)
+            {
+                score++;
+                if (TreeAt(nextX, y).Height >= TreeAt(x, y).Height)
+                {
+                    break;
+                }
+            }
+            return score;
+        }
+
+        public int GetTotalScenicScore(int x, int y)
+        {
+            return GetDownViewingDistance(x, y) 
+                     * GetLeftViewingDistance(x, y) 
+                     * GetUpViewingDistance(x, y) 
+                     * GetRightViewingDistance(x, y);
+        }
+
+        public int FindHighestScenicScore()
+        {
+            for (int i = 0; i <= _xMax; i++)
+            {
+                for (int j = 0; j <= _yMax; j++) 
+                {
+                    int total = GetTotalScenicScore(i, j);
+                    if (total > _highestScenicScore)
+                    {
+                        _highestScenicScore = total;
+                    }
+                }
+            }
+
+            return _highestScenicScore;
         }
 
         private bool IsOnEdge(int x, int y)
