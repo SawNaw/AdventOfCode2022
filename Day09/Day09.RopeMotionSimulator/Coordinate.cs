@@ -18,26 +18,5 @@ namespace Day09.RopeMotionSimulator
             X = x;
             Y = y;
         }
-
-        public Coordinate PushUp()
-        {
-            Y++;
-            return this;
-        }
-        public Coordinate PushDown()
-        {
-            Y--;
-            return this;
-        }
-        public Coordinate PushLeft()
-        {
-            X--;
-            return this;
-        }
-        public Coordinate PushRight()
-        {
-            X++;
-            return this;
-        }
     }
 }

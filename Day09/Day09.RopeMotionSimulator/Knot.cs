@@ -2,56 +2,162 @@
 {
     /// <summary>
     /// Represents a knot at a specific location in a two-dimensional plane. 
-    /// Provides methods to shift the position.
+    /// Provides methods to move itself in any direction and detect its position relative to another knot.
     /// </summary>
     internal class Knot
     {
-        public Coordinate Position;
+        public int X { get; private set; } = 0;
+        public int Y { get; private set; } = 0;
         public Knot()
         {
-            Position = new Coordinate(0, 0);
-        }
-        public void MoveLeft()
-        {
-            Position.PushLeft();
         }
 
-        public void MoveRight()
+        public Coordinate MoveLeft()
         {
-            Position.PushRight();
+            X--;
+            return new Coordinate(X, Y);
         }
 
-        public void MoveUp()
+        public Coordinate MoveRight()
         {
-            Position.PushUp();
+            X++;
+            return new Coordinate(X, Y);
         }
 
-        public void MoveDown()
+        public Coordinate MoveUp()
         {
-            Position.PushDown();
-        }
-        public void MoveDiagonallyDownLeft()
-        {
-            Position.PushDown();
-            Position.PushLeft();
+            Y++;
+            return new Coordinate(X, Y);
         }
 
-        public void MoveDiagonallyDownRight()
+        public Coordinate MoveDown()
         {
-            Position.PushDown();
-            Position.PushRight();
+            Y--;
+            return new Coordinate(X, Y);
+        }
+        public Coordinate MoveDiagonallyDownLeft()
+        {
+            MoveDown();
+            MoveLeft();
+            return new Coordinate(X, Y);
         }
 
-        public void MoveDiagonallyUpLeft()
+        public Coordinate MoveDiagonallyDownRight()
         {
-            Position.PushUp();
-            Position.PushLeft();
+            MoveDown();
+            MoveRight();
+            return new Coordinate(X, Y);
         }
 
-        public void MoveDiagonallyUpAndRight()
+        public Coordinate MoveDiagonallyUpLeft()
         {
-            Position.PushUp();
-            Position.PushRight();
+            MoveUp();
+            MoveLeft();
+            return new Coordinate(X, Y);
         }
+
+        public Coordinate MoveDiagonallyUpAndRight()
+        {
+           MoveUp();
+           MoveRight();
+           return new Coordinate(X, Y);
+        }
+
+        internal bool IsDirectlyAbove(Knot other)
+        {
+            return this.X == other.X
+                && this.Y > other.Y;
+        }
+
+        internal bool IsDirectlyBelow(Knot other)
+        {
+            return this.X == other.X
+                && this.Y < other.Y;
+        }
+
+        internal bool IsDirectlyToTheLeftOf(Knot other)
+        {
+            return this.X < other.X
+                && this.Y == other.Y;
+        }
+
+        internal bool IsDirectlyToTheRightOf(Knot other)
+        {
+            return this.X > other.X
+                && this.Y == other.Y;
+        }
+
+        internal bool IsAboveAndToTheRightOf(Knot other)
+        {
+            return this.X > other.X
+                && this.Y > other.Y;
+        }
+
+        internal bool IsAboveAndToTheLeftOf(Knot other)
+        {
+            return this.X < other.X
+                && this.Y > other.Y;
+        }
+
+        internal bool IsBelowAndToTheRightOf(Knot other)
+        {
+            return this.X > other.X
+                && this.Y < other.Y;
+        }
+
+        internal bool IsBelowAndToTheLeftOf(Knot other)
+        {
+            return this.X < other.X
+                && this.Y < other.Y;
+        }
+
+        internal bool IsNotTouching(Knot other) => !IsTouching(other);
+
+        internal bool IsTouching(Knot other)
+        {
+            return IsOverlapping(other)
+                || IsTouchingHorizontallyOrVertically(other)
+                || IsTouchingDiagonally(other);
+        }
+
+        internal bool IsOverlapping(Knot other)
+        {
+            return this.X == other.X
+                && this.Y == other.Y;
+        }
+
+        internal bool IsTouchingHorizontallyOrVertically(Knot other)
+        {
+            // EITHER the X OR Y coordinate differs by one
+            return (IsVerticallyAlignedWith(other) && HorizontalDistanceIsOne(other))
+                || (IsHorizontallyAlignedWith(other) && VerticalDistanceIsOne(other));
+        }
+        internal bool IsTouchingDiagonally(Knot other)
+        {
+            // Both X and Y coordinates differ by one
+            return Math.Abs(this.X - other.X) == 1
+                && Math.Abs(this.Y - other.Y) == 1;
+        }
+
+        internal bool HorizontalDistanceIsOne(Knot other)
+        {
+            return Math.Abs(this.X - other.X) == 1;
+        }
+
+        internal bool VerticalDistanceIsOne(Knot other)
+        {
+            return Math.Abs(this.Y - other.Y) == 1;
+        }
+
+        internal bool IsHorizontallyAlignedWith(Knot other)
+        {
+            return this.X == other.X;
+        }
+
+        internal bool IsVerticallyAlignedWith(Knot other)
+        {
+            return this.Y == other.Y;
+        }
+
     }
 }

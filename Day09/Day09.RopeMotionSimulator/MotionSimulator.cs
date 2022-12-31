@@ -42,7 +42,7 @@
         {
             for (int i = 1; i <= instruction.Steps; i++)
             {
-                // Move the head once
+                // Move the head knot by one step
                 MoveHead(instruction);
 
                 // Move the other knots if necessary
@@ -51,77 +51,57 @@
                     backKnot = rope.Knots.ElementAt(j);
                     frontKnot = rope.Knots.ElementAt(j - 1);
 
-                    if (Position.IsNotTouching(frontKnot, backKnot))
+                    if (frontKnot.IsNotTouching(backKnot))
                     {
-                        MoveTail();
+                        MoveOtherKnots();
                     }
                 }
 
-                if (!visitedCoordinates.Contains(rope.Tail.Position))
-                {
-                    visitedCoordinates.Add(rope.Tail.Position);
-                }
+                visitedCoordinates.Add(new Coordinate(rope.Tail.X, rope.Tail.Y));
             }
 
         }
 
-        private void MoveHead(Instruction instruction)
+        private Coordinate MoveHead(Instruction instruction) => instruction.Direction switch
         {
-            switch (instruction.Direction)
-            {
-                case (Direction.Up):
-                    rope.Head.MoveUp();
-                    break;
+            Direction.Up => rope.Head.MoveUp(),
+            Direction.Down => rope.Head.MoveDown(),
+            Direction.Left => rope.Head.MoveLeft(),
+            Direction.Right => rope.Head.MoveRight(),
+            _ => throw new NotImplementedException($"{instruction.Direction} is not a recognised direction")
+        };
 
-                case (Direction.Down):
-                    rope.Head.MoveDown();
-                    break;
-
-                case (Direction.Left):
-                    rope.Head.MoveLeft();
-                    break;
-
-                case (Direction.Right):
-                    rope.Head.MoveRight();
-                    break;
-            }
-        }
-
-        private void MoveTail()
+        private void MoveOtherKnots()
         {
-            if (Position.IsTouching(frontKnot, backKnot))
-            {
-                throw new InvalidOperationException("The tail should not be moved when it is touching the head.");
-            }
-            if (Position.FrontKnotIsDirectlyAbove(frontKnot, backKnot))
+            if (frontKnot.IsDirectlyAbove(backKnot))
             {
                 backKnot.MoveUp();
             }
-            else if (Position.FrontKnotIsDirectlyBelow(frontKnot, backKnot))
+            else if (frontKnot.IsDirectlyBelow(backKnot))
             {
                 backKnot.MoveDown();
             }
-            else if (Position.FrontKnotIsDirectlyToTheLeft(frontKnot, backKnot))
+            else if (frontKnot.IsDirectlyToTheLeftOf(backKnot))
             {
                 backKnot.MoveLeft();
             }
-            else if (Position.FrontKnotIsDirectlyToTheRight(frontKnot, backKnot))
+            else if (frontKnot.IsDirectlyToTheRightOf(backKnot))
             {
                 backKnot.MoveRight();
             }
-            else if (Position.FrontKnotIsAboveAndToTheRight(frontKnot, backKnot))
+            else if (frontKnot.IsAboveAndToTheRightOf(backKnot))
             {
                 backKnot.MoveDiagonallyUpAndRight();
             }
-            else if (Position.FrontKnotIsAboveAndToTheLeft(frontKnot, backKnot))
+            else if (frontKnot.IsAboveAndToTheLeftOf(backKnot))
             {
                 backKnot.MoveDiagonallyUpLeft();
             }
-            else if (Position.FrontKnotIsBelowAndToTheRight(frontKnot, backKnot))
+            else if (frontKnot.IsBelowAndToTheRightOf(backKnot))
             {
                 backKnot.MoveDiagonallyDownRight();
             }
-            else if (Position.FrontKnotIsBelowAndToTheLeft(frontKnot, backKnot))
+            else if (frontKnot.IsBelowAndToTheLeftOf(backKnot))
             {
                 backKnot.MoveDiagonallyDownLeft();
             }
