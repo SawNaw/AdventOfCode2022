@@ -20,3 +20,5 @@ var answer1 = new[]
 Console.WriteLine($"Answer to Part 1: {answer1}");
 
 Console.WriteLine($"Answer to Part 2: ");
+Console.WriteLine();
+cpu.DrawImage();

@@ -5,6 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
+using Day10.CRT;
 
 namespace Day10.CPU
 {
@@ -19,6 +20,7 @@ namespace Day10.CPU
         internal int CurrentCycle = 1;
         internal List<int> SignalStrengths { get; } = new();
         internal List<Instruction> CompletedInstructions { get; } = new();
+        private Crt crt = new();
 
         /// <summary>
         /// The current value of the X register.
@@ -40,10 +42,17 @@ namespace Day10.CPU
             }
         }
 
+        internal void DrawImage()
+        {
+            crt.DrawImage();
+        }
+
         internal void CycleOnce()
         {
             RecordSignalStrength();
             --currentItem.ExecutionTimer;
+
+            crt.RecordPixel(CurrentCycle, X);
 
             if (currentItem.ExecutionTimer == 0)
             {

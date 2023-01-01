@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -9,6 +9,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Day10.CPU\Day10.CPU.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LargerProgram.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
