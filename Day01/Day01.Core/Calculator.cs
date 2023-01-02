@@ -8,6 +8,9 @@ namespace Day01.Core
 {
     internal static class Calculator
     {
+        /// <summary>
+        /// Returns the sum of the three highest integers in the collection.
+        /// </summary>
         internal static int SumThreeHighest(IEnumerable<int> source)
         {
             List<int> copy = new(source); // copy the collection before messing with it

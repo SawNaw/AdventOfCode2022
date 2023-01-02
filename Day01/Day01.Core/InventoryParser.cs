@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace Day01.Core
 {
-    public class FileParser
+    /// <summary>
+    /// Parses the puzzle input containing the inventory of all elves.
+    /// </summary>
+    public class InventoryParser
     {
         private readonly string filePath;
         private readonly string[] fileContents;
 
-        public FileParser(string filePath)
+        public InventoryParser(string filePath)
         {
             this.filePath = filePath;
             fileContents = File.ReadAllLines(this.filePath);

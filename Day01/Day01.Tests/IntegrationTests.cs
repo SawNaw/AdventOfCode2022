@@ -12,7 +12,7 @@ namespace Day01.Tests
         [TestCase("input.txt", 71502, 208191)]
         public void IntegrationTest_For_Both_Parts(string inputFile, int expectedAnswerOne, int expectedAnswerTwo)
         {
-            var parser = new FileParser(inputFile);
+            var parser = new InventoryParser(inputFile);
             var allTotalCalories = parser.CalculateTotalCaloriesOfEachElf();
             Assert.Multiple(() =>
             {
