@@ -8,22 +8,17 @@ namespace Day01.Tests
 {
     internal class IntegrationTests
     {
-        [Test]
-        public void IntegrationTest_ForPartOne_UsingTestInput()
+        [TestCase("testinput.txt", 24000, 45000)]
+        [TestCase("input.txt", 71502, 208191)]
+        public void IntegrationTest_For_Both_Parts(string inputFile, int expectedAnswerOne, int expectedAnswerTwo)
         {
-            var parser = new FileParser(@"testinput.txt");
-            var result = parser.Parse();
-            var highestCalories = result.CalorieAndPositions.Max(c => c.HighestCalorie);
-            Assert.That(highestCalories, Is.EqualTo(24000));
-        }
-
-        [Test]
-        public void IntegrationTest_ForPartTwo_UsingTestInput()
-        {
-            var parser = new FileParser(@"testinput.txt");
-            var result = parser.Parse();
-            var sumofAllHighestCalories = result.CalorieAndPositions.Sum(c => c.HighestCalorie);
-            Assert.That(sumofAllHighestCalories, Is.EqualTo(45000));
+            var parser = new FileParser(inputFile);
+            var allTotalCalories = parser.CalculateTotalCaloriesOfEachElf();
+            Assert.Multiple(() =>
+            {
+                Assert.That(allTotalCalories.Max(), Is.EqualTo(expectedAnswerOne));
+                Assert.That(Calculator.SumThreeHighest(allTotalCalories), Is.EqualTo(expectedAnswerTwo));
+            });
         }
     }
 }

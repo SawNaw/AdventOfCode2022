@@ -6,29 +6,49 @@ namespace EnumerableExtensionsTests
     {
         private static IEnumerable<Person> GetPersonList()
         {
-            var list = new List<Person>();
-            list.Add(new Person("John", new DateOnly(2020, 01, 02), new[] { "manager", "administrator" }));
-            list.Add(new Person("Mike Wang", new DateOnly(2022, 10, 11), new[] { "engineer", "developer" }));
-            list.Add(new Person("Susanna Dai", new DateOnly(2021, 11, 04), new[] { "doctor", "surgeon" }));
-            list.Add(new Person("Wilbur", new DateOnly(1999, 11, 21), new[] { "manager", "administrator" }));
-            list.Add(new Person("Shaun", new DateOnly(2022, 08, 31), new[] { "pilot" }));
-            list.Add(new Person("Sephiroth", new DateOnly(1982, 04, 24), new[] { "doctor", "surgeon" }));
-            list.Add(new Person("Mario", new DateOnly(1986, 01, 12), new[] { "manager", "administrator" }));
-            list.Add(new Person("Michael", new DateOnly(2022, 10, 12), new[] { "engineer", "developer" }));
-            list.Add(new Person("Bowser", new DateOnly(2021, 11, 05), new[] { "sales" }));
-            list.Add(new Person("Zack", new DateOnly(2022, 10, 12), new[] { "manager", "surgeon" }));
-            return list;
+            return new Person[]
+            {
+                new Person("John", new DateOnly(2020, 01, 02), new[] { "manager", "administrator" }),
+                new Person("Mike Wang", new DateOnly(2022, 10, 11), new[] { "engineer", "developer" }),
+                new Person("Susanna Dai", new DateOnly(2021, 11, 04), new[] { "doctor", "surgeon" }),
+                new Person("Wilbur", new DateOnly(1999, 11, 21), new[] { "manager", "administrator" }),
+                new Person("Shaun", new DateOnly(2022, 08, 31), new[] { "pilot" }),
+                new Person("Sephiroth", new DateOnly(1982, 04, 24), new[] { "doctor", "surgeon" }),
+                new Person("Mario", new DateOnly(1986, 01, 12), new[] { "manager", "administrator" }),
+                new Person("Michael", new DateOnly(2022, 10, 12), new[] { "engineer", "developer" }),
+                new Person("Bowser", new DateOnly(2021, 11, 05), new[] { "sales" }),
+                new Person("Zack", new DateOnly(2022, 10, 12), new[] { "manager", "surgeon" })
+            };
         }
-
         [Test]
-        public void Simple_Numbers_Split_Works()
+        public void Simple_String_Collection_Split_Works()
         {
-            int[] numbers = new[] { 1, 2, 3, 4, 5, 6 };
-            var result = numbers.Split(n => n == 3);
+            string[] things = { "pie", "apple", "cake", "mud", "nuts", "plum", "mud", "milk", "butter" };
+            var edibleThings = things.Split(t => t == "mud");
+
+            Assert.Multiple(() =>
+            {
+                // Check outer collection
+                Assert.That(edibleThings.Count, Is.EqualTo(3));
+
+                // Check inner collections
+                Assert.That(edibleThings.First().First(), Is.EqualTo("pie"));
+                Assert.That(edibleThings.First().ElementAt(1), Is.EqualTo("apple"));
+                Assert.That(edibleThings.First().ElementAt(2), Is.EqualTo("cake"));
+                Assert.That(edibleThings.First().Count, Is.EqualTo(3));
+
+                Assert.That(edibleThings.ElementAt(1).ElementAt(0), Is.EqualTo("nuts"));
+                Assert.That(edibleThings.ElementAt(1).ElementAt(1), Is.EqualTo("plum"));
+                Assert.That(edibleThings.ElementAt(1).Count, Is.EqualTo(2));
+
+                Assert.That(edibleThings.ElementAt(2).ElementAt(0), Is.EqualTo("milk"));
+                Assert.That(edibleThings.ElementAt(2).ElementAt(1), Is.EqualTo("butter"));
+                Assert.That(edibleThings.ElementAt(2).Count, Is.EqualTo(2));
+            });
         }
 
         [Test]
-        public void Integration_Test_One()
+        public void Test_One()
         {
             var list = GetPersonList();
 
@@ -49,7 +69,7 @@ namespace EnumerableExtensionsTests
         }
 
         [Test]
-        public void Integration_Test_Two()
+        public void Test_Two()
         {
             var list = GetPersonList();
             var result = list.Split(l => l.Name.Length < 9);
@@ -63,7 +83,7 @@ namespace EnumerableExtensionsTests
         }
 
         [Test]
-        public void Integration_Test_Three()
+        public void Test_Three()
         {
             var list = GetPersonList();
             var result = list.Split(l => l.DateOfBirth.Year < 2000);

@@ -14,8 +14,8 @@ namespace Day01.Tests
             public void Parse_Returns_CorrectNumberOfLists()
             {
                 var parser = new FileParser(@"testinput.txt");
-                var result = parser.Parse();
-                Assert.That(result.Elves.Count, Is.EqualTo(5));
+                var result = parser.CalculateTotalCaloriesOfEachElf();
+                Assert.That(result.Count, Is.EqualTo(5));
             }
         }
     }
