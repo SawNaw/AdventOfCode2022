@@ -20,11 +20,39 @@ namespace EnumerableExtensionsTests
                 new Person("Zack", new DateOnly(2022, 10, 12), new[] { "manager", "surgeon" })
             };
         }
+
         [Test]
-        public void Simple_String_Collection_Split_Works()
+        public void Split_Works_With_Doubles()
         {
-            string[] things = { "pie", "apple", "cake", "mud", "nuts", "plum", "mud", "milk", "butter" };
-            var edibleThings = things.Split(t => t == "mud");
+            double[] things = { 1.1, 2.1, 3.1, 0.1, 4.1, 5.1, 0.2, 6.1, 7.1 };
+            var edibleThings = things.Split(0.1, 0.2);
+
+            Assert.Multiple(() =>
+            {
+                // Check outer collection
+                Assert.That(edibleThings.Count, Is.EqualTo(3));
+
+                // Check inner collections
+                Assert.That(edibleThings.First().First(), Is.EqualTo(1.1));
+                Assert.That(edibleThings.First().ElementAt(1), Is.EqualTo(2.1));
+                Assert.That(edibleThings.First().ElementAt(2), Is.EqualTo(3.1));
+                Assert.That(edibleThings.First().Count, Is.EqualTo(3));
+
+                Assert.That(edibleThings.ElementAt(1).ElementAt(0), Is.EqualTo(4.1));
+                Assert.That(edibleThings.ElementAt(1).ElementAt(1), Is.EqualTo(5.1));
+                Assert.That(edibleThings.ElementAt(1).Count, Is.EqualTo(2));
+
+                Assert.That(edibleThings.ElementAt(2).ElementAt(0), Is.EqualTo(6.1));
+                Assert.That(edibleThings.ElementAt(2).ElementAt(1), Is.EqualTo(7.1));
+                Assert.That(edibleThings.ElementAt(2).Count, Is.EqualTo(2));
+            });
+        }
+
+        [Test]
+        public void Split_Works_With_Multiple_Strings()
+        {
+            string[] things = { "pie", "apple", "cake", "mud-pie", "nuts", "plum", "mud-spread", "milk", "butter" };
+            var edibleThings = things.Split("mud-pie", "mud-spread");
 
             Assert.Multiple(() =>
             {
@@ -69,10 +97,11 @@ namespace EnumerableExtensionsTests
         }
 
         [Test]
-        public void Test_Two()
+        public void Split_Works_With_Classes()
         {
             var list = GetPersonList();
             var result = list.Split(l => l.Name.Length < 9);
+            var c = new[] { 'a', 'b' };
 
             Assert.Multiple(() =>
             {
@@ -83,7 +112,7 @@ namespace EnumerableExtensionsTests
         }
 
         [Test]
-        public void Test_Three()
+        public void Split_Works_With_Classes_Again()
         {
             var list = GetPersonList();
             var result = list.Split(l => l.DateOfBirth.Year < 2000);
