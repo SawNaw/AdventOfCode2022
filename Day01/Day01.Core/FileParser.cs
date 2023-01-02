@@ -15,7 +15,7 @@ namespace Day01.Core
         {
             var lines = File.ReadAllLines(FilePath);
 
-            var parsedLines = lines.SplitBy(l => string.IsNullOrWhiteSpace(l))
+            var parsedLines = lines.Split(l => string.IsNullOrWhiteSpace(l))
                                    .Select(e => new Elf(e));
 
             var highestCalorieListAndPosition = GetThreeHighestCalorieListAndPosition(parsedLines);

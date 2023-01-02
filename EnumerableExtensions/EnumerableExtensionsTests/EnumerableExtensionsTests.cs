@@ -4,7 +4,7 @@ namespace EnumerableExtensionsTests
 {
     public partial class Tests
     {
-        private static List<Person> GetList()
+        private static IEnumerable<Person> GetPersonList()
         {
             var list = new List<Person>();
             list.Add(new Person("John", new DateOnly(2020, 01, 02), new[] { "manager", "administrator" }));
@@ -24,49 +24,59 @@ namespace EnumerableExtensionsTests
         public void Simple_Numbers_Split_Works()
         {
             int[] numbers = new[] { 1, 2, 3, 4, 5, 6 };
-            var result = numbers.SplitBy(n => n == 3);
+            var result = numbers.Split(n => n == 3);
         }
 
         [Test]
         public void Integration_Test_One()
         {
-            List<Person> list = GetList();
+            var list = GetPersonList();
 
-            var result = list.SplitBy(l => l.Titles.Contains("pilot") || l.Titles.Contains("sales"));
+            var result = list.Split(l => l.Titles.Contains("pilot") || l.Titles.Contains("sales"));
+            var t = list.GroupBy(x => x.Name == "Shaun");
 
             Assert.That(result.Count, Is.EqualTo(3));
-            Assert.That(result.Where(r => r.Any(t => t.Titles.Contains("pilot"))), Is.Empty);
-            Assert.That(result.Where(r => r.Any(t => t.Titles.Contains("sales"))), Is.Empty);
-            Assert.That(result.First().Count, Is.EqualTo(4));
-            Assert.That(result.ElementAt(1).Count, Is.EqualTo(3));
-            Assert.That(result.ElementAt(2).Count, Is.EqualTo(1));
-            Assert.That(result.Any(r => r.Any(t => t.Name == "Shaun")), Is.False);
-            Assert.That(result.Any(r => r.Any(t => t.Name == "Bowser")), Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Where(r => r.Any(t => t.Titles.Contains("pilot"))), Is.Empty);
+                Assert.That(result.Where(r => r.Any(t => t.Titles.Contains("sales"))), Is.Empty);
+                Assert.That(result.First().Count, Is.EqualTo(4));
+                Assert.That(result.ElementAt(1).Count, Is.EqualTo(3));
+                Assert.That(result.ElementAt(2).Count, Is.EqualTo(1));
+                Assert.That(result.Any(r => r.Any(t => t.Name == "Shaun")), Is.False);
+                Assert.That(result.Any(r => r.Any(t => t.Name == "Bowser")), Is.False);
+            });
         }
 
         [Test]
         public void Integration_Test_Two()
         {
-            List<Person> list = GetList();
-            var result = list.SplitBy(l => l.Name.Length < 9);
+            var list = GetPersonList();
+            var result = list.Split(l => l.Name.Length < 9);
 
-            Assert.That(result.Count, Is.EqualTo(2));
-            Assert.That(result.First().Count, Is.EqualTo(2));
-            Assert.That(result.ElementAt(1).Count, Is.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(2));
+                Assert.That(result.First().Count, Is.EqualTo(2));
+                Assert.That(result.ElementAt(1).Count, Is.EqualTo(1));
+            });
         }
 
         [Test]
         public void Integration_Test_Three()
         {
-            List<Person> list = GetList();
-            var result = list.SplitBy(l => l.DateOfBirth.Year < 2000);
+            var list = GetPersonList();
+            var result = list.Split(l => l.DateOfBirth.Year < 2000);
 
-            Assert.That(result.Count, Is.EqualTo(3));
-            Assert.That(result.First().Count, Is.EqualTo(3));
-            Assert.That(result.ElementAt(1).Count, Is.EqualTo(1));
-            Assert.That(result.ElementAt(2).Count, Is.EqualTo(3));
-            Assert.That(result.Any(r => r.Any(t => t.Name == "Wilbur")), Is.False);
-            Assert.That(result.Any(r => r.Any(t => t.Name == "Mario")), Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(3));
+                Assert.That(result.First().Count, Is.EqualTo(3));
+                Assert.That(result.ElementAt(1).Count, Is.EqualTo(1));
+                Assert.That(result.ElementAt(2).Count, Is.EqualTo(3));
+                Assert.That(result.Any(r => r.Any(t => t.Name == "Wilbur")), Is.False);
+                Assert.That(result.Any(r => r.Any(t => t.Name == "Mario")), Is.False);
+            });
         }
     }
 }
