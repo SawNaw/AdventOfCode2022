@@ -49,10 +49,37 @@ namespace EnumerableExtensionsTests
         }
 
         [Test]
-        public void Split_Works_With_Multiple_Strings()
+        public void Split_Works_With_Params()
         {
             string[] things = { "pie", "apple", "cake", "mud-pie", "nuts", "plum", "mud-spread", "milk", "butter" };
             var edibleThings = things.Split("mud-pie", "mud-spread");
+
+            Assert.Multiple(() =>
+            {
+                // Check outer collection
+                Assert.That(edibleThings.Count, Is.EqualTo(3));
+
+                // Check inner collections
+                Assert.That(edibleThings.First().First(), Is.EqualTo("pie"));
+                Assert.That(edibleThings.First().ElementAt(1), Is.EqualTo("apple"));
+                Assert.That(edibleThings.First().ElementAt(2), Is.EqualTo("cake"));
+                Assert.That(edibleThings.First().Count, Is.EqualTo(3));
+
+                Assert.That(edibleThings.ElementAt(1).ElementAt(0), Is.EqualTo("nuts"));
+                Assert.That(edibleThings.ElementAt(1).ElementAt(1), Is.EqualTo("plum"));
+                Assert.That(edibleThings.ElementAt(1).Count, Is.EqualTo(2));
+
+                Assert.That(edibleThings.ElementAt(2).ElementAt(0), Is.EqualTo("milk"));
+                Assert.That(edibleThings.ElementAt(2).ElementAt(1), Is.EqualTo("butter"));
+                Assert.That(edibleThings.ElementAt(2).Count, Is.EqualTo(2));
+            });
+        }
+
+        [Test]
+        public void Split_Works_With_Conditions()
+        {
+            string[] things = { "pie", "apple", "cake", "mud-pie", "nuts", "plum", "mud-spread", "milk", "butter" };
+            var edibleThings = things.Split(t => t.StartsWith("mud"));
 
             Assert.Multiple(() =>
             {

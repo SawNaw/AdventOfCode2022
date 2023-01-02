@@ -15,7 +15,7 @@ namespace EnumerableExtensions
         /// 
         /// <example>
         /// string[] things = {"pie", "apple", "cake", "mud-pie", "nuts", "plum", "mud-spread", "milk", "butter"};
-        /// var edibleThings = things.Split(m => m.Contains("mud"));
+        /// var edibleThings = things.Split(m => m.StartsWith("mud"));
         /// 
         /// edibleThings will contain these collections: 
         ///    {"pie", "apple", "cake"}
