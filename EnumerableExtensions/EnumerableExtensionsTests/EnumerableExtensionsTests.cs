@@ -154,5 +154,34 @@ namespace EnumerableExtensionsTests
                 Assert.That(result.Any(r => r.Any(t => t.Name == "Mario")), Is.False);
             });
         }
+
+        [Test]
+        public void Split_Works_On_Text_File_Containing_Records_Separated_By_Newlines()
+        {
+            var file = File.ReadAllLines("TestInput.txt");
+            var result = file.Split(x => string.IsNullOrWhiteSpace(x));
+
+            var firstCollection = result.First();
+            var secondCollection = result.ElementAt(1);
+            var thirdCollection = result.ElementAt(2);
+
+            Assert.That(result.All(x => x.Count() == 3), Is.True);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstCollection.First(), Is.EqualTo("Blah Blah Information One"));
+                Assert.That(firstCollection.ElementAt(1), Is.EqualTo("Yadda Yadda Information One"));
+                Assert.That(firstCollection.ElementAt(2), Is.EqualTo("Test Test Information One"));
+
+                Assert.That(secondCollection.First(), Is.EqualTo("Blah Blah Information Two"));
+                Assert.That(secondCollection.ElementAt(1), Is.EqualTo("Yadda Yadda Information Two"));
+                Assert.That(secondCollection.ElementAt(2), Is.EqualTo("Test Test Information Two"));
+
+                Assert.That(thirdCollection.First(), Is.EqualTo("Blah Blah Information Three"));
+                Assert.That(thirdCollection.ElementAt(1), Is.EqualTo("Yadda Yadda Information Three"));
+                Assert.That(thirdCollection.ElementAt(2), Is.EqualTo("Test Test Information Three"));
+            });
+            
+        }
     }
 }
