@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace Day11.Framework
+﻿namespace Day11.Framework
 {
     public record class Test
     {

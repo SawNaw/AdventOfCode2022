@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Day02.Core;
-using System.Data;
 using static Day02.Core.StrategyGuideReader;
 
 Console.WriteLine("AdventOfCode -- Day02");

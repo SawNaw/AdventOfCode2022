@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace Day05.Core
+﻿namespace Day05.Core
 {
     internal class MoveInstruction
     {
@@ -22,9 +14,9 @@ namespace Day05.Core
                                   .Split(" ")
                                   .Select(x => int.Parse(x));
 
-           this.NumberOfItemsToMove = numbersOnly.ElementAt(0);
-           this.Source = numbersOnly.ElementAt(1);
-           this.Destination = numbersOnly.ElementAt(2);
+            this.NumberOfItemsToMove = numbersOnly.ElementAt(0);
+            this.Source = numbersOnly.ElementAt(1);
+            this.Destination = numbersOnly.ElementAt(2);
         }
     }
 }

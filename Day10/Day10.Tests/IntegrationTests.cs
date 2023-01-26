@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day10.Tests
+﻿namespace Day10.Tests
 {
     internal class IntegrationTests
     {
@@ -37,7 +31,7 @@ namespace Day10.Tests
                             + signalStrength5
                             + signalStrength6, Is.EqualTo(13140));
             });
-            
+
         }
     }
 }

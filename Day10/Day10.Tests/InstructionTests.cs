@@ -1,5 +1,3 @@
-using Day10.CPU;
-
 namespace Day10.Tests
 {
     public class Tests

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day08.Forestry
+﻿namespace Day08.Forestry
 {
     /// <summary>
     /// Represents a two-dimensional rectangle of <see cref="Tree"/> objects.
@@ -135,14 +129,14 @@ namespace Day08.Forestry
             return true;
         }
 
-        
+
         public int FindHighestScenicScore()
         {
             var calculator = new ScenicScore(this);
 
             for (int i = 0; i <= XMax; i++)
             {
-                for (int j = 0; j <= YMax; j++) 
+                for (int j = 0; j <= YMax; j++)
                 {
                     int total = calculator.CalculateScenicScore(i, j);
                     if (total > _highestScenicScore)

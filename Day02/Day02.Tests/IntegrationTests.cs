@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day02.Tests
+﻿namespace Day02.Tests
 {
     internal class IntegrationTests
     {
@@ -13,7 +7,7 @@ namespace Day02.Tests
         {
             var rounds = StrategyGuideReader.GetAllRoundsFromFile(@"testinput.txt", StrategyGuideReader.ReadMode.PartOne);
             int score = 0;
-            foreach (var round in rounds) 
+            foreach (var round in rounds)
             {
                 score += round.GetTotalScore();
             }

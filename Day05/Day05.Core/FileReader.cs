@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day05.Core
+﻿namespace Day05.Core
 {
     internal class FileReader
     {
@@ -17,7 +11,7 @@ namespace Day05.Core
         {
             List<LineOfCrates> list = new();
 
-            foreach(var line in Contents)
+            foreach (var line in Contents)
             {
                 if (line[1] == '1') // this means we've reached the end of the list of crates
                 {
@@ -34,8 +28,8 @@ namespace Day05.Core
         {
             var list = new List<MoveInstruction>();
 
-            foreach(var line in Contents) 
-            { 
+            foreach (var line in Contents)
+            {
                 if (line.StartsWith("move"))
                 {
                     list.Add(new MoveInstruction(line));

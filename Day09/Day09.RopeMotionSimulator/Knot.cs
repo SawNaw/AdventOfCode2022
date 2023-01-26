@@ -58,9 +58,9 @@
 
         public Coordinate MoveDiagonallyUpAndRight()
         {
-           MoveUp();
-           MoveRight();
-           return new Coordinate(X, Y);
+            MoveUp();
+            MoveRight();
+            return new Coordinate(X, Y);
         }
 
         internal bool IsDirectlyAbove(Knot other)

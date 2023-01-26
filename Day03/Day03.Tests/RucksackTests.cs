@@ -1,11 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day03.Tests
+﻿namespace Day03.Tests
 {
     public class RucksackTests
     {
@@ -55,7 +48,7 @@ namespace Day03.Tests
                 Assert.That(Rucksack.GetCommonItemInAllRucksacks(sacks1), Is.EqualTo('r'));
                 Assert.That(Rucksack.GetCommonItemInAllRucksacks(sacks2), Is.EqualTo('Z'));
             });
-            
+
         }
     }
 }

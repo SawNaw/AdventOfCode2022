@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day07.Filesystem
+﻿namespace Day07.Filesystem
 {
     /// <summary>
     /// Represents a line of output obtained after an ls command is read.

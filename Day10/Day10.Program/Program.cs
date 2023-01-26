@@ -6,7 +6,7 @@ Console.WriteLine("");
 var cpu = new Cpu(@"input.txt");
 cpu.RunProgram();
 
-var answer1 = new[] 
+var answer1 = new[]
 {
     cpu.SignalStrengths[19],
     cpu.SignalStrengths[59],

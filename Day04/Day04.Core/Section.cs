@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day04.Core
+﻿namespace Day04.Core
 {
     internal class Section
     {
@@ -16,9 +10,9 @@ namespace Day04.Core
         /// The range 2-6 fully contains 3-5.
         /// The range 2-6 does not fully contain 4-7, though there is overlap.
         /// </example>
-        public bool FullyContains(Section otherSection) 
+        public bool FullyContains(Section otherSection)
         {
-            return (this.Start <= otherSection.Start 
+            return (this.Start <= otherSection.Start
                  && this.End >= otherSection.End);
         }
 

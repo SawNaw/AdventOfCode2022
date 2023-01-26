@@ -1,9 +1,4 @@
 ﻿using Day02.Core.Moves;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Day02.Core
 {
@@ -30,12 +25,12 @@ namespace Day02.Core
             return opponentsMove switch
             {
                 OpponentMoves.Rock when yourMove == YourMoves.Rock => Scores.Draw,
-                OpponentMoves.Rock when yourMove == YourMoves.Paper => Scores.Win,    
+                OpponentMoves.Rock when yourMove == YourMoves.Paper => Scores.Win,
                 OpponentMoves.Rock when yourMove == YourMoves.Scissors => Scores.Lose,
 
-                OpponentMoves.Paper when yourMove == YourMoves.Rock => Scores.Lose,    
-                OpponentMoves.Paper when yourMove == YourMoves.Paper => Scores.Draw,    
-                OpponentMoves.Paper when yourMove == YourMoves.Scissors => Scores.Win, 
+                OpponentMoves.Paper when yourMove == YourMoves.Rock => Scores.Lose,
+                OpponentMoves.Paper when yourMove == YourMoves.Paper => Scores.Draw,
+                OpponentMoves.Paper when yourMove == YourMoves.Scissors => Scores.Win,
 
                 OpponentMoves.Scissors when yourMove == YourMoves.Rock => Scores.Win,
                 OpponentMoves.Scissors when yourMove == YourMoves.Paper => Scores.Lose,

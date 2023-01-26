@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day03.Core
+﻿namespace Day03.Core
 {
     internal static class Priority
     {
@@ -41,20 +35,20 @@ namespace Day03.Core
         {
             var file = File.ReadAllLines(filepath);
             int sum = 0;
-            foreach (var line in file) 
-            { 
+            foreach (var line in file)
+            {
                 var sack = new Rucksack(line);
                 sum += GetPriority(sack.GetCommonItem());
             }
             return sum;
         }
 
-        private static void InitializeLetterToPriorityLookup() 
+        private static void InitializeLetterToPriorityLookup()
         {
             int i = 1;
 
             // Add priorities for 'a' through 'z'
-            for (char c = 'a'; c <= 'z'; c++, i++) 
+            for (char c = 'a'; c <= 'z'; c++, i++)
             {
                 lettersAndPriorities.Add(c, i);
             }

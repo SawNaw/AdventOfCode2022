@@ -123,7 +123,7 @@ namespace Day11.Tests
                 Assert.That(thirdMonkey.Items.ElementAt(2), Is.EqualTo(97));
 
                 Assert.That(thirdMonkey.Operation(9), Is.EqualTo(81));
-                            
+
                 Assert.That(thirdMonkey.Test.IsPass(91), Is.True);
                 Assert.That(thirdMonkey.Test.IsPass(92), Is.False);
             });

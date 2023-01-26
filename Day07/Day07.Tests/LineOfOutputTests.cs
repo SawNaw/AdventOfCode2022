@@ -1,9 +1,4 @@
 ﻿using Day07.Filesystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Day07.Tests
 {
@@ -16,7 +11,7 @@ namespace Day07.Tests
         public void Files_AreProcessed_Correctly(string input, int expectedSize, string expectedName)
         {
             var line = new LineOfOutput(input);
-            
+
             Assert.Multiple(() =>
             {
                 Assert.That(line.Content, Is.EqualTo(input));

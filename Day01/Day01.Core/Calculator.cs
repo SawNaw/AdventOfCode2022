@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day01.Core
+﻿namespace Day01.Core
 {
     internal static class Calculator
     {

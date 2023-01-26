@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Collections.Specialized.BitVector32;
-
-namespace Day04.Core
+﻿namespace Day04.Core
 {
     internal class SectionAssignmentReader
     {

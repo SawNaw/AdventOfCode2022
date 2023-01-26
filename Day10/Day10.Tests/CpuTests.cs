@@ -1,11 +1,4 @@
-﻿using Day10.CPU;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day10.Tests
+﻿namespace Day10.Tests
 {
     internal class CpuTests
     {
