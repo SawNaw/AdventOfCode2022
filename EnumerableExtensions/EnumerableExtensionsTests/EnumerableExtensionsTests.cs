@@ -76,7 +76,7 @@ namespace EnumerableExtensionsTests
         }
 
         [Test]
-        public void Split_Works_With_Conditions()
+        public void Split_Works_With_Given_Condition()
         {
             string[] things = { "pie", "apple", "cake", "mud-pie", "nuts", "plum", "mud-spread", "milk", "butter" };
             var edibleThings = things.Split(t => t.StartsWith("mud"));
@@ -103,7 +103,7 @@ namespace EnumerableExtensionsTests
         }
 
         [Test]
-        public void Test_One()
+        public void Split_Works_With_Multiple_Conditions()
         {
             var list = GetPersonList();
 
@@ -124,7 +124,7 @@ namespace EnumerableExtensionsTests
         }
 
         [Test]
-        public void Split_Works_With_Classes()
+        public void Split_Works_With_Classes_Based_On_Given_Separators()
         {
             var list = GetPersonList();
             var result = list.Split(l => l.Name.Length < 9);
@@ -139,7 +139,7 @@ namespace EnumerableExtensionsTests
         }
 
         [Test]
-        public void Split_Works_With_Classes_Again()
+        public void Split_Works_With_Classes_Based_On_Given_Condition()
         {
             var list = GetPersonList();
             var result = list.Split(l => l.DateOfBirth.Year < 2000);

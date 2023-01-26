@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace EnumerableExtensions
+﻿namespace EnumerableExtensions
 {
     public static class EnumerableExtensions
     {
@@ -60,7 +58,7 @@ namespace EnumerableExtensions
         }
 
         /// <summary>
-        /// Splits a collection into multiple collections using a set of separators.
+        /// Splits a collection into multiple collections using given separators.
         /// </summary>
         /// 
         /// <typeparam name="T">The type of the elements in the collection.</typeparam>
